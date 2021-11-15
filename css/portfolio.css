@@ -1,0 +1,173 @@
+/*HEADING CONTENT*/
+body{
+    height: 100%;
+    width:100%;
+    font-size: 19px;
+
+}
+
+h4{
+    font-size: 25px;
+}
+
+h5 {
+    font-size: 19px;
+    line-height: 40px;
+    font-weight: 600;
+    color:white;
+}
+
+.modal-title{
+    color: black;
+}
+
+h6{
+    font-size: 21px;
+}
+
+#profile-big {
+    height: 100%;
+    top:0%;
+    background-image: url(../images/fulls/wood_background.png);
+}
+
+#content-container{
+    float:right;
+}
+
+.profile-container {
+    position: absolute;
+    padding-left: 10%;
+    padding-right: 10%;
+    top: 25%;
+    display: inline-block;
+}
+
+#portfolio-content{
+    padding-right:5%;
+    padding-left: 5%;
+    width: 100%;
+}
+
+#content-header{
+    padding-top:10%;
+    padding-bottom: 5%;
+}
+
+.text-white{
+    color: white;
+}
+
+.resume{
+    color:chartreuse;
+}
+
+.icons{
+    padding-right:5%;
+}
+
+    .icons icon {
+        font-size: 20px;
+    }
+
+#profile-small {
+    background-image: url(../images/fulls/wood_background.png);
+    width:100%;
+}
+
+.d-block{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#container{
+    height:100%;
+    width: 100%;
+    margin: 0px;
+}
+
+#row{
+    height: 100vh;
+    width: 100%;
+}
+
+/*.card-row{
+    display:flex;
+    justify-content:space-around;
+    margin-bottom:5%;
+}*/
+
+.profile-pic-container{
+    width:150px;
+    border-radius: 50%;
+}
+
+.mobile-pic{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.small-heading{
+    padding-right:10px;
+    padding-left:10px;
+}
+#recent-work{
+    padding-bottom: 5%;
+}
+
+.card{
+    box-shadow:3px 3px rgb(119, 119, 119);
+    height:auto;
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+.card-text{
+    margin-bottom:5px;
+}
+
+.recent-work-img-container {
+    height: 15vh;
+    border-radius: 8px;
+}
+
+img {
+    object-fit: contain;
+    height:100%;
+    width:100%;
+}
+.m-0{
+    margin: 0px;
+}
+
+.profile-pic{
+    height: 100%;
+    width:100%;
+    border-radius:50%;
+}
+
+@media (max-width: 767px) {
+
+    .hide-on-mobile {
+        display: none !important;
+    }
+    .container{
+        width:auto;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-row {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 5%;
+    }
+    .show-on-mobile {
+        display: none !important;
+    }
+    .container{
+        width:auto;
+    }
+}
