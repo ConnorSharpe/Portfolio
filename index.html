@@ -311,11 +311,11 @@
                         Since performing the Boot Camp progress and ahead/behind message would be very labor intensive for the program to calculate in teh back end, I decided to hand the issue over to JavaScript. When I built
                         the HTML, I only filled the Course Progress bar and left the warning message and camp progress containers empty to be filled as the page loads:
                     </p>
-                    <img src="images/fulls/ProgressBar_Container_HTML.png" alt="Progress Container HTML" />
+                    <img src="images/fulls/ProgressBar_Container_Html.png" alt="Progress Container HTML" />
                     <p>
                         Then I included that course progress percentage in the View Model for this progress bar:
                     </p>
-                    <img src="images/fulls/ProgressBar_OnlyCourse.PNG" alt="Course Progress Bar" />
+                    <img src="images/fulls/ProgressBar_OnlyCourse.png" alt="Course Progress Bar" />
                     <p>
                         In order to calculate the boot camp progress as accurately as possible, I would need to find the amount of time it takes to complete the already-completed courses added to the days completed of the course
                         they are in the middle of (course days to complete * course progress) all divided by the total time it will take for the student to complete all courses. To calculate where the student should be, I would need to
@@ -329,7 +329,7 @@
                     <p>
                         Then I wrote a gigantic JavaScript function - the first part of which accesses the cookie, finds the boot camp progress, and creates the boot camp progress bar HTML elements
                     </p>
-                    <img src="images/fulls/ProgressBar_JavaScript1_Camp.png" alt="Camp Progress Bar JavaScript" />
+                    <img src="images/fulls/ProgressBar_Javascript1_Camp.png" alt="Camp Progress Bar JavaScript" />
                     <p>
                         In the second part, the function finds where the student should be given where the aforementioned boot camp progress percentage, and the purchased time that the student has to remain in the system to give them an accurate depiction
                         about whether they are on track, ahead, or behind in their studies and create HTML elements that reflect such.
@@ -519,12 +519,15 @@
                         menu is closed, so I create another notification via JavaScript and post it onto the left menu icon when if the left menu is not deployed:
                     </p>
                     <img src="images/fulls/Notification_NavBar_JvaScript.PNG" alt="navbar notification JS" />
+                    <p>
+                        JavaScript:
+                    </p>
                     <img src="images/fulls/Notification_NavBar_View.PNG" alt="navbar notification" />
                     <p>
                         The Notifications are working correctly for all pages except the inbox itself, for that I modified the inbox Index Method to grab a count
                         of the type of unviewed material in each inbox tab to display on the tab title:
                     </p>
-                    <img src="images/fulls/Notification_InboxIndex_Method.PNG" alt="inbox index" />
+                    <img src="images/fulls/Notification_InboxIndex_Method.png" alt="inbox index" />
                     <p>
                         Which displays like this:
                     </p>
