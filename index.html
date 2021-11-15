@@ -220,7 +220,7 @@
                         With my objects completed, I built a method containing nested foreach loops to fill the viewmodels inside each other. Since I need this functionality
                         in several different parts of the project, I made the return type an area course viewmodel. Look, my CourseAccordionMethod:
                     </p>
-                    <img src="images/fulls/NavMenu_CourseAccordion_Method.PNG" alt="CourseAccordion Method" />
+                    <img src="images/fulls/NavMenu_CourseAccordion_Method.png" alt="CourseAccordion Method" />
                     <p>
                         Luckily for me, my boss had already started a working prototype partial view that stows itself outside of the window, so I just manipulated his code
                         to handle my nested View Model. The HTML structure of my accordion mirrors the controller method with nested bootstrap accordions using foreach loops:
@@ -253,7 +253,7 @@
                         To make my menu a little more user-friendly, I wanted to create a marker to show the exact position if the student is accessing their current course.
                         So I made another cookie stored on the user's machine with their current position information like this:
                     </p>
-                    <img src="images/fulls/NavMenu_MenuCookie_Instantiation.PNG" alt="Menu Cookie Creation" />
+                    <img src="images/fulls/NavMenu_MenuCookie_Instantiation.png" alt="Menu Cookie Creation" />
                     <p>
                         Then I use JavaScript to access the cookie, grab the current position information, and hide it in plain sight inside the menu heading:
                     </p>
@@ -306,12 +306,12 @@
                         Boot camps with multiple live projects could now reuse the same live project course in different course orders to accommodate the lengthier camps. Next, I had to find the course progress that the student had completed -
                         a simple matter of dividing the page number they were on by the total pages in the course and rounding that number to a percent. Here is my sweet method:
                     </p>
-                    <img src="images/fulls/ProgressBar_CourseProgress_Method.PNG" alt="Course Progress Method" />
+                    <img src="images/fulls/ProgressBar_CourseProgress_Method.png" alt="Course Progress Method" />
                     <p>
                         Since performing the Boot Camp progress and ahead/behind message would be very labor intensive for the program to calculate in teh back end, I decided to hand the issue over to JavaScript. When I built
                         the HTML, I only filled the Course Progress bar and left the warning message and camp progress containers empty to be filled as the page loads:
                     </p>
-                    <img src="images/fulls/ProgressBar_Container_HTML.PNG" alt="Progress Container HTML" />
+                    <img src="images/fulls/ProgressBar_Container_HTML.png" alt="Progress Container HTML" />
                     <p>
                         Then I included that course progress percentage in the View Model for this progress bar:
                     </p>
@@ -321,11 +321,11 @@
                         they are in the middle of (course days to complete * course progress) all divided by the total time it will take for the student to complete all courses. To calculate where the student should be, I would need to
                         grab the user start date and the weeks they purchased to compare it to the previously calculated Boot Camp progress. I did this by grabbing all those values and putting them into a string separated by commas like this:
                     </p>
-                    <img src="images/fulls/ProgressBar_CookieDetails_Method.PNG" alt="Progress Bar Cookie Values" />
+                    <img src="images/fulls/ProgressBar_CookieDetails_Method.png" alt="Progress Bar Cookie Values" />
                     <p>
                         The results of which have been put into a client-side cookie to be accessed by the JavaScript:
                     </p>
-                    <img src="images/fulls/ProgressBar_Cookie_Instantiation.PNG" alt="Progress Bar Cookie Instantiation" />
+                    <img src="images/fulls/ProgressBar_Cookie_Instantiation.png" alt="Progress Bar Cookie Instantiation" />
                     <p>
                         Then I wrote a gigantic JavaScript function - the first part of which accesses the cookie, finds the boot camp progress, and creates the boot camp progress bar HTML elements
                     </p>
@@ -363,7 +363,7 @@
                         Now each user is able to choose which information they want displayed:
                     </p>
                     <img src="images/fulls/ProgressBar_NoMessage.png" alt="No Message Bar" />
-                    <img src="images/fulls/ProgressBar_full_Ahead.png" alt="Full Bar Ahead" />
+                    <img src="images/fulls/ProgressBar_Full_Ahead.png" alt="Full Bar Ahead" />
                     <p>
                         And now everyone is happy!
                     </p>
@@ -508,11 +508,11 @@
                     <p>
                         Then I display the count on the inbox button in the HTML:
                     </p>
-                    <img src="images/fulls/Notification_InboxButton_HTML.PNG" alt="inbox button html" />
+                    <img src="images/fulls/Notification_InboxButton_Html.png" alt="inbox button html" />
                     <p>
                         Once I have my notification number, I use css to make it look like a red box with a white number inside:
                     </p>
-                    <img src="images/fulls/Notification_Css.PNG" alt="Notification CSS" />
+                    <img src="images/fulls/Notification_Css.png" alt="Notification CSS" />
                     <img src="images/fulls/Notification_LeftBar_View.PNG" alt="leftbar notification" />
                     <p>
                         Now that I have my notifications displayed correctly, I needed a way to transfer the notifications up to the nav bar when the side
@@ -562,6 +562,7 @@
                         file to the folder. I wanted the picture to display before it was saved so that the user would know what they were going to look like, so I gave the picture input a JavaScript onclick event that will display the picture.
                     </p>
                     <img src="images/fulls/ProfilePic_EditModal_Html.PNG" alt="Edit Modal HTML" />
+                    <br/>
                     <img src="images/fulls/ProfilePic_EditModal_JavaScript.PNG" alt="Edit Modal JavaScript" />
                     <p>
                         The rendered modal looks like this:
