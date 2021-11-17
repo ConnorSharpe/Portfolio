@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -111,8 +111,8 @@
                                     <h6 class="card-title">Progress Bars</h6>
                                     <hr class="m-0" />
                                     <p class="card-text">
-                                        The bar takes into account the amount of time each user has in the bootcamp to tell them where
-                                        they are AND where they should be to finish on time.
+                                        These Bars take into account each user's time spent in the boot camp to tell them both where they are 
+                                        AND where they should be in order to finish on time.
                                     </p>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@
                                     <h6 class="card-title">Drill Lock</h6>
                                     <hr class="m-0" />
                                     <p class="card-text">
-                                        The instructors prayed and prayed for a way to ensure that students needed to complete any failed material before moving on in their studies.
+                                        The instructors prayed and prayed for a way to ensure students completed and passed any failed material before moving on in their studies.
                                         This is the answer to those prayers.
                                     </p>
                                 </div>
@@ -198,8 +198,8 @@
                     <p>
                         This is the code that I am most proud of as a developer so far. I was tasked with giving the students a navigation menu
                         that had to be detailed enough for the user to quickly know where they are in the course. In the old system, the progress bar
-                        was a clickable and took the user to that percentage page number - the user had to either know which precise page number or guess and click with no page title.
-                        In the curriculum course blueprints, each course was organized into sections and each section into subsections. The pages - where the course content is - reside in the subsections.
+                        was clickable and took the user to the page representing the percentage of the course completed corresponding to the click point. The user had to either know the precise page number they were looking for or guess and click as no page titles were available.
+                        In the curriculum course blueprints, each course is organized into sections and each section into subsections. The pages - where the course content is - reside in the subsections.
                         I added the unused sections and subsections into the course structure for the nested view model that would fill the nested accordion. Inside the AreaCourseViewModel, I gently placed a list of
                         AreaSectionViewModels:
                     </p>
@@ -209,7 +209,7 @@
                     </p>
                     <img src="images/fulls/NavMenu_Section_Model.PNG" alt="Section View Model" />
                     <p>
-                        And in those subsections I jammed a list of pages
+                        And jammed a list of pages into those subsections:
                     </p>
                     <img src="images/fulls/NavMenu_Subsection_Model.PNG" alt="Subsection View Model" />
                     <p>
@@ -217,8 +217,8 @@
                     </p>
                     <img src="images/fulls/NavMenu_Page_Model.PNG" alt="Page View Model" />
                     <p>
-                        With my objects completed, I built a method containing nested foreach loops to fill the viewmodels inside each other. Since I need this functionality
-                        in several different parts of the project, I made the return type an area course viewmodel. Look, my CourseAccordionMethod:
+                        With my objects completed, I built a method containing nested foreach loops to fill the viewmodels inside each other. Since I needed this functionality
+                        in several different parts of the project, I made the return type an area course viewmodel. My CourseAccordionMethod, look:
                     </p>
                     <img src="images/fulls/NavMenu_CourseAccordion_Method.png" alt="CourseAccordion Method" />
                     <p>
@@ -239,7 +239,7 @@
                     </p>
                     <img src="images/fulls/NavMenu_ShowSideBar_Method.PNG" alt="ShowSideBar Method" />
                     <p>
-                        When the method is rendered in the layout, some simple razor Linq queries find the correct attributes based on the course that the user is viewing and the last time that the course was modified
+                        When the method is rendered in the layout, some simple Razor Linq queries find the correct attributes based on the course that the user is viewing and the last time that the course was modified
                         to return the menu in...
                     </p>
                     <img src="images/fulls/NavMenu_RuntTime_Good.PNG" alt="RunTime Good" />
@@ -250,7 +250,7 @@
                     </p>
                     <img src="images/fulls/NavMenu_CurrentPositionButton_JavaScript.PNG" alt="Current Position Menu JavaScript" />
                     <p>
-                        To make my menu a little more user-friendly, I wanted to create a marker to show the exact position if the student is accessing their current course.
+                        To make my menu a little more user-friendly, I wanted to create a marker to show the exact position when the student is accessing their current course.
                         So I made another cookie stored on the user's machine with their current position information like this:
                     </p>
                     <img src="images/fulls/NavMenu_MenuCookie_Instantiation.png" alt="Menu Cookie Creation" />
@@ -263,8 +263,9 @@
                     </p>
                     <img src="images/fulls/NavMenu_CurrentCourse_Compact.PNG" alt="Nav Menu Heading" />
                     <p>
-                        With the heading complete, I am able to tell which course they are in and what page number they have gotten to. With this new level of precision, I am able to generate
-                        an arrow, put it on the current page, and disable the page links afterwards to that students will have to access material in order through the next button so they can't skip any content.
+                        With the heading complete and the new level of precision it provided,  I was able to generate
+                        an arrow, put it on the current page, and disable the page links afterwards so that students have 
+                        to access material in the proper order through the Next button and can't skip any content.
                     </p>
                     <img src="images/fulls/NavMenu_PageBlock_JavaScript.PNG" alt="Current Position Icon JavaScript" />
                     <p>
@@ -291,12 +292,12 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        This is how I built the most accurate progress bar that the Tech Academy has ever used. When I was a student, the progress bar only counted the actual course material
-                        which leaves between 2-4 weeks (depending on the particular bootcamp) for the mandatory live projects unaccounted for. The old model attempted to tell students how
+                        This is how I built the most accurate progress bar that the Tech Academy has ever used. When I was a student, the progress bar only reflected the actual course material,
+                        which left between 2-4 weeks (depending on the particular bootcamp) for the mandatory live projects unaccounted for. The old model attempted to tell students how
                         many days ahead/behind they were and then the student had to mentally account for the amount of time missing from the calculation. I was tasked with preserving the
-                        days ahead/behind while making the whole process more accurate. All of the courses at the Tech Academy are weighted by the days it takes on average to complete given an assumed
-                        8 hour study day. The issue here is that our largest course page-wise, Computer and Technology Basics, contains over 800 pages - but only takes 3 days to complete because
-                        it is not coding intensive. While C# and .Net Framework Course contains only 300 pages but takes about two weeks to complete because of the amount of small coding projects contained within.
+                        days ahead/behind while making the whole process more accurate. All of the courses at the Tech Academy are weighted by the days it takes on average to complete, given an assumed
+                        8 hour study day. The issue here is that our largest course page-wise, Computer and Technology Basics, contains over 800 pages, but only takes 3 days to complete because
+                        it is not coding intensive. At the same time C# and .Net Framework Course contains only 300 pages but takes about two weeks to complete because of the amount of small coding projects contained within.
                         To top it all off, not all boot camps contain the same classes or completion time (between 10-16 weeks full-time). I reorganized the way that bootcamps were stored in the dB. Since 1 course can exist
                         in some or all camps, I created the LMSCourseOrder table. This is just an object to link a course to a bootcamp. A boot camp itself is just the collection of courseOrders with that boot camp id.
                     </p>
@@ -308,18 +309,18 @@
                     </p>
                     <img src="images/fulls/ProgressBar_CourseProgress_Method.png" alt="Course Progress Method" />
                     <p>
-                        Since performing the Boot Camp progress and ahead/behind message would be very labor intensive for the program to calculate in teh back end, I decided to hand the issue over to JavaScript. When I built
+                        Since performing the boot camp progress and ahead/behind message would be very labor intensive for the program to calculate in the back end, I decided to hand the issue over to JavaScript. When I built
                         the HTML, I only filled the Course Progress bar and left the warning message and camp progress containers empty to be filled as the page loads:
                     </p>
-                    <img src="images/fulls/ProgressBar_Container_Html.png" alt="Progress Container HTML" />
+                    <img src="images/fulls/ProgressBar_Container_HTML.png" alt="Progress Container HTML" />
                     <p>
                         Then I included that course progress percentage in the View Model for this progress bar:
                     </p>
                     <img src="images/fulls/ProgressBar_OnlyCourse.png" alt="Course Progress Bar" />
                     <p>
-                        In order to calculate the boot camp progress as accurately as possible, I would need to find the amount of time it takes to complete the already-completed courses added to the days completed of the course
-                        they are in the middle of (course days to complete * course progress) all divided by the total time it will take for the student to complete all courses. To calculate where the student should be, I would need to
-                        grab the user start date and the weeks they purchased to compare it to the previously calculated Boot Camp progress. I did this by grabbing all those values and putting them into a string separated by commas like this:
+                        To present a student's boot camp progress as accurately as possible,  I needed to calculate the amount of time it normally takes to complete the courses they'd finished thus far, add that to the time spent in their current 
+                        course, and divide the sum by the total time allowed for the courses they'd paid for. To calculate where the student should be, I would need to
+                        grab the user start date and the weeks they purchased to compare it to the previously calculated boot camp progress. I did this by grabbing all those values and putting them into a string separated by commas like this:
                     </p>
                     <img src="images/fulls/ProgressBar_CookieDetails_Method.png" alt="Progress Bar Cookie Values" />
                     <p>
@@ -329,19 +330,19 @@
                     <p>
                         Then I wrote a gigantic JavaScript function - the first part of which accesses the cookie, finds the boot camp progress, and creates the boot camp progress bar HTML elements
                     </p>
-                    <img src="images/fulls/ProgressBar_Javascript1_Camp.png" alt="Camp Progress Bar JavaScript" />
+                    <img src="images/fulls/ProgressBar_JavaScript1_Camp.png" alt="Camp Progress Bar JavaScript" />
                     <p>
-                        In the second part, the function finds where the student should be given where the aforementioned boot camp progress percentage, and the purchased time that the student has to remain in the system to give them an accurate depiction
-                        about whether they are on track, ahead, or behind in their studies and create HTML elements that reflect such.
+                        In the second part, the function finds where the student should be given their aforementioned boot camp progress percentage compared to the remaining time they have left in the system, to give them an accurate depiction
+                        about whether they are on track, ahead, or behind in their studies, and create HTML elements that reflect such.
                     </p>
                     <img src="images/fulls/ProgressBar_Javascript2_Warning.png" alt="Warning Message JavaScript" />
                     <p>
-                        The system finally has a supremely accurate progress bar that can handle different lengthed boot camps AND different amounts of purchased time. One final task remains. There had been complaints from students who had fallen behind
+                        The system finally has an accurate progress bar that can handle different lengthed boot camps AND different amounts of purchased time. One final task remained. There had been complaints from students who had fallen behind
                         that the message telling them how far behind they were was stressing them out.
                     </p>
                     <img src="images/fulls/ProgressBar_Full_Behind.png" alt="Bad Progress" />
                     <p>
-                        I was to give the user an option to display any combination of course progress, camp progress, and days ahead/behind. I did this by adding a boolean for each element
+                        I decided to give the user an option to display any combination of course progress, camp progress, and days ahead/behind. I did this by adding a boolean for each element
                         to be stored inside the user's current position object. This would give the person the ability to show the elements they want and allow those changes to be saved when a new page loads.
                     </p>
                     <img src="images/fulls/ProgressBar_CurrentBoolean_Model.png" alt="Current Course Booleans" />
@@ -363,7 +364,7 @@
                         Now each user is able to choose which information they want displayed:
                     </p>
                     <img src="images/fulls/ProgressBar_NoMessage.png" alt="No Message Bar" />
-                    <img src="images/fulls/ProgressBar_Full_Ahead.png" alt="Full Bar Ahead" />
+                    <img src="images/fulls/ProgressBar_full_Ahead.png" alt="Full Bar Ahead" />
                     <p>
                         And now everyone is happy!
                     </p>
@@ -387,11 +388,11 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Sometimes I forget that my work occaisionally too brilliant for people to look at, but since the students have paid to learn I went about constructing a site-wide Dark Mode. The old
+                        Sometimes I forget that my work is occasionally too brilliant for people to look at, but since students have paid to access it, I constructed a site-wide Dark Mode. The old
                         system had nothing like this in place so I would be building it from scratch. "Bring it on," I whispered as I turned up the volume of my 80's synth music all the way up to 14
-                        (business volume - loud but safe). I began by playing around in CSS. I knew that I wanted everything bright to be dark and vice versa, so I searched for a way to invert colors.
+                        (business level - loud but safe). I began by playing around in CSS. I knew that I wanted everything bright to be dark and vice versa, so I searched for a way to invert colors.
                         The search brought me straight to the filter:invert; attribute. I created a CSS class called dark-mode added to the page's 'html' tag where I just inverted the colors and turned the brightness down a little bit.
-                        Then it was just a matter of going through the site and picking the elements that didnt need to be inverted (images, videos, notifications) and then re-inverting them back to the original. It looks like this:
+                        Then it was just a matter of going through the site and picking the elements that didn't need to be inverted (images, videos, notifications) and then re-inverting them back to the original. It looks like this:
                     </p>
                     <img src="images/fulls/DarkMode_Invert_CSS.png" alt="Dark Mode CSS" />
                     <p>
@@ -403,8 +404,8 @@
                     </p>
                     <img src="images/fulls/DarkMode_DarkPage.png" alt="Dark Page" />
                     <p>
-                        Blue and orange, the Tech Academy colors are on opposite sides of the color wheel so inverting makes everything seem cool and edgy - I wish I thought of it,
-                        but that's just how it all worked out. Then, in order to give users the choice to have dark mode - and save it from page to page - I added a boolean called DarkMode
+                        Blue and orange, the Tech Academy colors, are on opposite sides of the color wheel, so inverting  the site not only gave it a cooler, edgier look, but the result also stayed within the brand's color scheme - I wish I thought of it,
+                        but that's just how it all worked out. Then, in order to give users the choice to use dark mode - and save it from page to page - I added a boolean called DarkMode
                         to the user table and made a void controller method to manipulate it:
                     </p>
                     <img src="images/fulls/DarkMode_CSharp.PNG" alt="Dark Mode Method" />
@@ -418,15 +419,15 @@
                     </p>
                     <img src="images/fulls/DarkMode_Button_HTML.png" alt="Switch HTML" />
                     <p>
-                        and then manipulating those element's css to make it appear like a switch with a ball that covers one of two icons and moves back and forth:
+                        and then manipulating those elements' css to make it appear like a switch with a ball that covers one of two icons and moves back and forth:
                     </p>
                     <img src="images/fulls/DarkMode_Switch_CSS.png" alt="Switch CSS" />
                     <p>
-                        followed by some sweet sweet inline JavaScript to apply the class to the html tags if the user has darkmode already saved when the page loads:
+                        followed by some dope inline JavaScript to apply the class to the HTML tags if the user has darkmode already saved when the page loads:
                     </p>
                     <img src="images/fulls/DarkMode_PageLoad_JavaScript.png" alt="DarkMode PageLoad" />
                     <p>
-                        and a small method to hit the controller DarkMode Method, toggle the dark-mode class, and alter switch position/button text. That, Adam, is how it's done.
+                        and a small method to hit the controller DarkMode Method, toggle the dark-mode class, and alter switch position/button text. That, Boss, is how it's done.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -460,7 +461,7 @@
                     </p>
                     <img src="images/fulls/DrillLock_CurrentCourse_Model.PNG" alt="Current Course Model" />
                     <p>
-                        Students can only further their position by clicking the next button on their current position page. So inside of that Next controller method, I added an If statement
+                        Students can only further their position by clicking the Next button on their current position page. So inside of that Next controller method, I added an If statement
                         that checks if they are trying to advance their position while locked (that way they still have access to revious material in case they need a refresher).
                     </p>
                     <img src="images/fulls/DrillLock_LockIf_Method.PNG" alt="Drill Lock If" />
@@ -499,41 +500,38 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        The problem: students were not responding to material that instructors are postiong in their inboxes. This was happening
+                        The problem: students were not responding to material that instructors posted in their inboxes. This was happening
                         because there was no way for them to know that the material had been posted. I set about recifiying that. First I altered the
-                        Left menu to accept an int as its model, then I changed the controller method to find the count of unviewed and failed assignments by that
+                        Utility menu to accept an int as its model, then I changed the controller method to find the count of unviewed and failed assignments by that
                         student:
                     </p>
                     <img src="images/fulls/Notification_ShowLeftbar_Method.PNG" alt="Show Leftbar" />
                     <p>
-                        Then I display the count on the inbox button in the HTML:
+                        Then I displayed the count on the inbox button in the HTML:
                     </p>
-                    <img src="images/fulls/Notification_InboxButton_Html.png" alt="inbox button html" />
+                    <img src="images/fulls/Notification_InboxButton_HTML.PNG" alt="inbox button html" />
                     <p>
-                        Once I have my notification number, I use css to make it look like a red box with a white number inside:
+                        Once I had my notification number, I used css to make it look like a red box with a white number inside:
                     </p>
-                    <img src="images/fulls/Notification_Css.png" alt="Notification CSS" />
+                    <img src="images/fulls/Notification_Css.PNG" alt="Notification CSS" />
                     <img src="images/fulls/Notification_LeftBar_View.PNG" alt="leftbar notification" />
                     <p>
-                        Now that I have my notifications displayed correctly, I needed a way to transfer the notifications up to the nav bar when the side
-                        menu is closed, so I create another notification via JavaScript and post it onto the left menu icon when if the left menu is not deployed:
+                        Now that I had my notifications displayed correctly, I needed a way to transfer the notifications up to the nav bar when the Utility
+                        menu is closed, so I created another notification via JavaScript and posted it onto the Utility menu "open" icon when the Utility menu is not deployed:
                     </p>
                     <img src="images/fulls/Notification_NavBar_JvaScript.PNG" alt="navbar notification JS" />
-                    <p>
-                        JavaScript:
-                    </p>
                     <img src="images/fulls/Notification_NavBar_View.PNG" alt="navbar notification" />
                     <p>
-                        The Notifications are working correctly for all pages except the inbox itself, for that I modified the inbox Index Method to grab a count
+                        The Notifications were working correctly for all pages except the inbox itself. For that, I modified the inbox's Index method to grab a count
                         of the type of unviewed material in each inbox tab to display on the tab title:
                     </p>
-                    <img src="images/fulls/Notification_InboxIndex_Method.png" alt="inbox index" />
+                    <img src="images/fulls/Notification_InboxIndex_Method.PNG" alt="inbox index" />
                     <p>
                         Which displays like this:
                     </p>
                     <img src="images/fulls/Notification_StudentFailed_View.PNG" />
                     <p>
-                        Now the students have a notification system that updated itself everytime they move to a different page on the site.
+                        Now the students have a notification system that updates itself everytime they move to a different page on the site.
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -555,17 +553,16 @@
                 </div>
                 <div class="modal-body">
                     <p>
-                        Students were suggesting a better way to get a look at themselves. I had to find a way for users to upload profile pictures. First I went about creating a folder for the
-                        pictures to be stored in called "uploaded_user_images" in the existing "images" folder. Since everyone can only have one profile picture, I decideed to name each picture with
+                        Students begged for a way to look at pictures of themselves. I had to find a way for them to upload profile pictures. First, I created a folder to store the pictures 
+                        called "uploaded_user_images" in the existing "images" folder. Since everyone can only have one profile picture, I decided to name each picture with
                         the user's ID so that a person editing their picture will rewrite the existing file path. I created a simple method to save the picture files in the new folder:
                     </p>
                     <img src="images/fulls/ProfilePic_FileSave_Method.PNG" alt="File Save Method" />
                     <p>
-                        Then I place that code inside the already existing method to edit user profile information and created a bootstrap modal to appear when an edit proile button is clicked. The modal has the a form on it that posts the new
-                        file to the folder. I wanted the picture to display before it was saved so that the user would know what they were going to look like, so I gave the picture input a JavaScript onclick event that will display the picture.
+                        Then I placed that code inside the already existing method to edit user profile information and created a bootstrap modal to appear when an edit profile button is clicked. The modal has a form on it that posts the new
+                        file to the folder. I wanted the user to be able to see the picture before it was posted so they would know what it was going to look like, so I gave the input a JavaScript onclick event that will display the file before posting.
                     </p>
                     <img src="images/fulls/ProfilePic_EditModal_Html.PNG" alt="Edit Modal HTML" />
-                    <br/>
                     <img src="images/fulls/ProfilePic_EditModal_JavaScript.PNG" alt="Edit Modal JavaScript" />
                     <p>
                         The rendered modal looks like this:
@@ -626,3 +623,4 @@
     </script>
 </body>
 </html>
+
