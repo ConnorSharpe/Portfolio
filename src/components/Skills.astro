@@ -1,0 +1,86 @@
+---
+const categories = [
+  {
+    name: 'Frontend',
+    color: 'accent',
+    skills: ['Angular', 'TypeScript', 'Next.js', 'JavaScript', 'HTML/CSS', 'RxJS'],
+  },
+  {
+    name: 'Backend',
+    color: 'accent',
+    skills: ['C#', '.NET', 'REST APIs', 'SQL', 'Entity Framework'],
+  },
+  {
+    name: 'AI & Agents',
+    color: 'accent-warm',
+    skills: [
+      'Claude API',
+      'ChatGPT',
+      'Grok',
+      'Multi-Step AI Workflows',
+      'LLM Governance',
+      'Drift Detection',
+      'Prompt Engineering',
+      'Context Management',
+    ],
+  },
+  {
+    name: 'DevOps & Tools',
+    color: 'accent',
+    skills: ['CI/CD', 'Octopus Deploy', 'Git', 'Azure DevOps'],
+  },
+  {
+    name: 'Security',
+    color: 'accent-warm',
+    skills: ['OWASP', 'ReCaptcha', 'Encryption', 'Input Validation'],
+  },
+  {
+    name: 'Other',
+    color: 'accent',
+    skills: ['Python', 'Agile/Scrum', 'Technical Writing', 'Code Review'],
+  },
+];
+
+// Map color strings to Tailwind classes (Tailwind needs whole class names to purge correctly)
+const colorMap: Record<string, { heading: string; pill: string }> = {
+  accent: {
+    heading: 'text-accent',
+    pill: 'bg-accent/10 text-accent border-accent/20',
+  },
+  'accent-warm': {
+    heading: 'text-accent-warm',
+    pill: 'bg-accent-warm/10 text-accent-warm border-accent-warm/20',
+  },
+};
+---
+
+<section id="skills" class="py-24 px-4 sm:px-6 border-t border-border">
+  <div class="max-w-6xl mx-auto">
+    <p class="font-mono text-accent text-sm mb-3 tracking-widest uppercase">Skills</p>
+    <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-12">
+      What I work with.
+    </h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      {
+        categories.map(({ name, color, skills }) => {
+          const { heading, pill } = colorMap[color];
+          return (
+            <div>
+              <h3 class={`font-mono text-sm font-semibold mb-4 tracking-wide ${heading}`}>
+                {name}
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                {skills.map((skill) => (
+                  <span class={`text-xs font-medium px-3 py-1 rounded-full border ${pill}`}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</section>

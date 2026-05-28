@@ -1,0 +1,119 @@
+---
+const jobs = [
+  {
+    company: 'Fillory AI',
+    title: 'Framework Architect & Refactoring Technician',
+    dates: 'Nov 2025 – Apr 2026',
+    location: 'Portland, OR',
+    bullets: [
+      'Architected a distributed AI development platform spanning multi-machine production infrastructure, a cloud code execution sandbox, and a GitHub-based CI/CD pipeline.',
+      'Built a governance middleware layer for LLM memory management, drift detection, and identity coherence across multiple AI-powered applications.',
+      'Designed core infrastructure for the Portland Protocol — a phase-gated event system with architect review gates, versioned event envelopes, and a retryable webhook delivery pipeline.',
+      'Implemented semantic action normalization and hardened task state tracking in a TypeScript/Next.js agent system; diagnosed and resolved planner behavior regressions.',
+      'Led live production recovery of a 17-service AI platform — zero-downtime hardware intervention with no data or service loss.',
+    ],
+    tech: ['TypeScript', 'Next.js', 'Claude API', 'ChatGPT', 'Grok', 'Python', 'CI/CD'],
+    monogram: 'FA',
+  },
+  {
+    company: 'Office Ally',
+    title: 'Software Developer',
+    dates: 'Jan 2022 – Nov 2024',
+    location: 'Vancouver, WA',
+    bullets: [
+      'Owned code review for an offshore Angular team in Poland — established standards, caught security issues, and improved output consistency across the team.',
+      'Expanded platform API surface with new .NET endpoints, increasing feature coverage while maintaining reliability in a CI/CD pipeline.',
+      'Led signup flow rebuild from diagnosis to deployment — reduced friction and improved new account conversion.',
+      'Introduced OWASP-aligned security practices across the platform: ReCaptcha, field encryption, input validation at system boundaries.',
+      'Earned Angular certification to establish technical authority during third-party code review.',
+    ],
+    tech: ['Angular', 'C#', '.NET', 'SQL', 'CI/CD', 'Octopus Deploy', 'OWASP'],
+    monogram: 'OA',
+  },
+  {
+    company: 'Prosper IT Consulting',
+    title: 'Software Developer',
+    dates: 'Feb 2020 – Dec 2021',
+    location: 'Portland, OR',
+    bullets: [
+      'Rebuilt the entire user experience for learncodinganywhere.com from the ground up.',
+      'Built a server-side cached course nav menu that reduced page load time from 7 seconds to 1.39 seconds.',
+      'Designed dynamic dual progress bars that accurately accounted for different bootcamp lengths and live project weeks.',
+      'Implemented a notification system alerting students to graded material in real time.',
+    ],
+    tech: ['C#', '.NET MVC', 'JavaScript', 'jQuery', 'Bootstrap', 'SQL'],
+    monogram: 'PI',
+  },
+];
+---
+
+<section id="experience" class="py-24 px-4 sm:px-6 border-t border-border">
+  <div class="max-w-4xl mx-auto">
+    <p class="font-mono text-accent text-sm mb-3 tracking-widest uppercase">Experience</p>
+    <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-16">
+      Where I've worked.
+    </h2>
+
+    <div class="relative">
+      <!-- Vertical line -->
+      <div
+        class="absolute left-5 md:left-8 top-0 bottom-0 w-px bg-border"
+        aria-hidden="true"
+      >
+      </div>
+
+      <div class="flex flex-col gap-10">
+        {
+          jobs.map((job) => (
+            <div class="relative flex gap-6 md:gap-10">
+              {/* Dot */}
+              <div class="shrink-0 relative z-10">
+                <div class="w-10 h-10 md:w-16 md:h-16 rounded-full bg-surface border-2 border-accent flex items-center justify-center font-bold text-accent text-xs md:text-sm">
+                  {job.monogram}
+                </div>
+              </div>
+
+              {/* Card */}
+              <div class="flex-1 bg-surface border border-border rounded-xl p-6 card-hover mb-2">
+                {/* Header */}
+                <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-4">
+                  <div>
+                    <div class="font-mono text-xs text-accent mb-1 tracking-wide">
+                      {job.company}
+                    </div>
+                    <h3 class="text-lg font-bold text-text-primary leading-snug">
+                      {job.title}
+                    </h3>
+                  </div>
+                  <div class="text-right shrink-0">
+                    <div class="text-sm text-text-muted">{job.dates}</div>
+                    <div class="text-xs text-text-muted">{job.location}</div>
+                  </div>
+                </div>
+
+                {/* Bullets */}
+                <ul class="space-y-2 mb-4">
+                  {job.bullets.map((bullet) => (
+                    <li class="flex gap-2 text-sm text-text-muted leading-relaxed">
+                      <span class="text-accent mt-1 shrink-0" aria-hidden="true">›</span>
+                      <span>{bullet}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Tech pills */}
+                <div class="flex flex-wrap gap-2 pt-4 border-t border-border">
+                  {job.tech.map((t) => (
+                    <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

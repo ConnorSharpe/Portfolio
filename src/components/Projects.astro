@@ -1,0 +1,459 @@
+---
+---
+
+<section id="projects" class="py-24 px-4 sm:px-6 border-t border-border">
+  <div class="max-w-4xl mx-auto">
+    <p class="font-mono text-accent text-sm mb-3 tracking-widest uppercase">Projects</p>
+    <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-4">
+      What I've built.
+    </h2>
+    <p class="text-text-muted text-base sm:text-lg mb-12 max-w-2xl">
+      Each project follows the same structure: what was broken, what I decided, how it was
+      built, and what changed because of it.
+    </p>
+
+    <div class="flex flex-col gap-6">
+
+      <!-- ─── Project 1: Fillory AI ─── -->
+      <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
+        <summary
+          class="cursor-pointer p-6 flex items-start justify-between gap-4"
+          aria-label="Expand AI Behavioral Governance Framework case study"
+        >
+          <div class="flex-1 min-w-0">
+            <div class="font-mono text-xs text-accent mb-2 tracking-wide">Fillory AI · 2025–2026</div>
+            <h3 class="text-xl font-bold text-text-primary mb-2 leading-snug">
+              AI Behavioral Governance Framework
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Built the systems that keep multi-step AI workflows from silently degrading.
+              Evaluation pipelines, context isolation, structured handoff protocols, and the
+              Portland Protocol — a phase-gated event coordination system.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              {['TypeScript', 'Next.js', 'Claude API', 'Python', 'CI/CD'].map((t) => (
+                <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
+              ))}
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-180 mt-1"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+
+        <div class="px-6 pb-8 border-t border-border pt-6 space-y-8">
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Problem</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                AI-powered applications degrade in predictable ways: outputs drift from
+                defined constraints over a workflow, models optimize for user approval over
+                accuracy, and multi-step pipelines have no built-in verification between
+                stages. There were no off-the-shelf tools for enforcing workflow-level
+                behavioral constraints at the application layer.
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Approach</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                Rather than relying on model-level behavior alone, the solution was to build
+                constraint and evaluation systems at the orchestration layer — validation
+                logic that defines acceptable output boundaries, testing infrastructure that
+                verifies workflow consistency, and structured handoff protocols that reduce
+                contamination between pipeline stages.
+              </p>
+            </div>
+          </div>
+
+          <!-- Architecture diagram -->
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-4 uppercase tracking-wide font-mono">Architecture</h4>
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 font-mono text-xs">
+              <div class="flex-1 bg-bg border border-accent/40 rounded-lg p-4 text-center">
+                <div class="text-accent text-xs mb-2 font-semibold tracking-widest uppercase">Layer 1</div>
+                <div class="font-bold text-text-primary mb-1">Infrastructure</div>
+                <div class="text-text-muted text-xs leading-relaxed">Multi-machine production · Cloud code sandbox · GitHub CI/CD</div>
+              </div>
+              <div class="text-accent font-bold text-lg text-center sm:text-left" aria-hidden="true">→</div>
+              <div class="flex-1 bg-bg border border-accent/40 rounded-lg p-4 text-center">
+                <div class="text-accent text-xs mb-2 font-semibold tracking-widest uppercase">Layer 2</div>
+                <div class="font-bold text-text-primary mb-1">Portland Protocol</div>
+                <div class="text-text-muted text-xs leading-relaxed">Phase gates · Versioned events · Retryable webhooks</div>
+              </div>
+              <div class="text-accent font-bold text-lg text-center sm:text-left" aria-hidden="true">→</div>
+              <div class="flex-1 bg-bg border border-accent/40 rounded-lg p-4 text-center">
+                <div class="text-accent text-xs mb-2 font-semibold tracking-widest uppercase">Layer 3</div>
+                <div class="font-bold text-text-primary mb-1">Agent Runtime</div>
+                <div class="text-text-muted text-xs leading-relaxed">Semantic normalization · Task state tracking · Regression detection</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Engineering constraints -->
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-4 uppercase tracking-wide font-mono">Engineering Constraints</h4>
+            <div class="space-y-4">
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Trust as Permission to Slip</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  The planner tracked a user–agent trust score that was intended to relax
+                  behavioral constraints as trust increased. The logic is inverted. A trusting
+                  user is not a forgiving user — they're a <em>dependent</em> one. The more
+                  they trust the agent, the less they scrutinize its outputs. High trust is
+                  precisely when the agent must be most reliable, not least. The system had
+                  built a permission structure where earning trust was a license to degrade.
+                </p>
+                <p class="text-xs text-text-muted mt-2 italic">
+                  Diagnosed by coming to the codebase fresh and running structured
+                  agent-assisted interrogation of the system's assumptions.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">17-Service Production Recovery</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  Led live production recovery of a 17-service AI platform following a
+                  hardware failure — implementing process persistence and boot automation to
+                  achieve zero-downtime intervention with no data or service loss.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Agents Optimizing Against Their Own Guardrails</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  A recurring pattern: when presented with a problem, early agents would
+                  identify the fastest path to resolution — which often meant recommending
+                  deletion of the <code class="font-mono text-xs bg-bg px-1 py-0.5 rounded">CODEBASE_RULES</code> files.
+                  These were the behavioral governance constraints that defined the project:
+                  its design principles, architectural boundaries, behavioral contracts. The
+                  agent wasn't malfunctioning. It was doing exactly what it was built to do.
+                  "Quickly" and "correctly" were not the same objective.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Result</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Delivered AI-powered applications with improved workflow reliability and reduced
+              output inconsistency. Created a structured developer environment adopted for
+              government compliance projects, where deterministic, verifiable behavior was a
+              hard requirement.
+            </p>
+          </div>
+
+          <!-- Efficiency Guide artifact -->
+          <div class="bg-bg border border-accent/30 rounded-xl p-5">
+            <div class="font-mono text-xs text-accent mb-2 tracking-wide uppercase">Documented Artifact</div>
+            <p class="text-sm text-text-muted leading-relaxed mb-3">
+              <strong class="text-text-primary">AI Developer Efficiency Guide</strong> — a
+              detailed operational protocol covering context topology, bounded memory systems,
+              deterministic handoffs, session restart protocols, and sub-agent coordination
+              patterns. Written during production development, not after.
+            </p>
+            <a
+              href="/efficiency-guide.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors"
+            >
+              Read the Efficiency Guide
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
+        </div>
+      </details>
+
+      <!-- ─── Project 2: Office Ally ─── -->
+      <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
+        <summary
+          class="cursor-pointer p-6 flex items-start justify-between gap-4"
+          aria-label="Expand Angular Platform Reliability & Security case study"
+        >
+          <div class="flex-1 min-w-0">
+            <div class="font-mono text-xs text-accent mb-2 tracking-wide">Office Ally · 2022–2024</div>
+            <h3 class="text-xl font-bold text-text-primary mb-2 leading-snug">
+              Angular Platform Reliability & Security
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Owned code review for an offshore team, rebuilt the signup flow, and
+              introduced OWASP-aligned security practices across a production healthcare
+              software platform.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              {['Angular', 'C#', '.NET', 'SQL', 'OWASP', 'Octopus Deploy'].map((t) => (
+                <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
+              ))}
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-180 mt-1"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+
+        <div class="px-6 pb-8 border-t border-border pt-6 space-y-6">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Problem</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                A healthcare software platform's front-end was being developed by an offshore
+                team with inconsistent code quality and security practices. The signup process
+                was also losing potential customers due to friction and bugs in the flow.
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Approach</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                Established a formal code review process for the offshore team, became
+                Angular-certified to give technical authority to the reviews, and prioritized
+                the signup flow rebuild as the highest-impact improvement. Implemented
+                OWASP-aligned security practices across the platform.
+              </p>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Architecture</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              .NET API endpoints for business logic, Angular frontend with clean component
+              separation, ReCaptcha integration for bot prevention, Octopus for
+              environment-specific deployment configuration, and field-level encryption for
+              sensitive data at system boundaries.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Result</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Improved platform reliability and scalability. Signup process rebuild directly
+              contributed to new customer acquisition. Offshore team output quality measurably
+              improved with formal review cadence and clear standards.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- ─── Project 3: Prosper IT — Nav Menu ─── -->
+      <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
+        <summary
+          class="cursor-pointer p-6 flex items-start justify-between gap-4"
+          aria-label="Expand Course Navigation Menu case study"
+        >
+          <div class="flex-1 min-w-0">
+            <div class="font-mono text-xs text-accent mb-2 tracking-wide">Prosper IT · 2020–2021</div>
+            <h3 class="text-xl font-bold text-text-primary mb-2 leading-snug">
+              Course Navigation Menu
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed">
+              The code I'm most proud of. Rebuilt the course nav from a featureless progress
+              bar into a full nested accordion with position tracking — then spent two weeks
+              fixing the 7-second runtime it caused.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              {['C#', '.NET MVC', 'Razor', 'OutputCache', 'JavaScript', 'SQL'].map((t) => (
+                <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
+              ))}
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-180 mt-1"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+
+        <div class="px-6 pb-8 border-t border-border pt-6 space-y-6">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Problem</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                The course nav was a clickable progress bar with no labels — students had to
+                guess what percentage corresponded to what page. The new nested accordion
+                idea worked logically but took 7 seconds to load per page, making it
+                unusable. The runtime cost came from running nested DB queries for every
+                page load.
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Approach</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                Two-layer caching strategy: server-side <code class="font-mono text-xs bg-bg px-1 py-0.5 rounded">OutputCache</code> (keyed by
+                courseId + modified date) for the menu structure itself, and client-side
+                cookies for user-specific position data. The expensive query only runs when
+                course content changes.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Architecture</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Nested C# ViewModels (Course → Section → Subsection → Page), server-side
+              Razor partial view, <code class="font-mono text-xs bg-bg px-1 py-0.5 rounded">OutputCache</code> attribute on the
+              rendering method with <code class="font-mono text-xs bg-bg px-1 py-0.5 rounded">VaryByParam</code> on courseId and modified date.
+              JavaScript injects user position on load from a client-side cookie, places an
+              arrow on the current page, and disables links beyond the student's progress.
+            </p>
+          </div>
+
+          <!-- Before/after runtime callout -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-bg border border-border rounded-xl p-4 text-center">
+              <div class="font-mono text-2xl font-bold text-accent-warm mb-1">~7s</div>
+              <div class="text-xs text-text-muted">Before caching</div>
+            </div>
+            <div class="bg-bg border border-accent/30 rounded-xl p-4 text-center">
+              <div class="font-mono text-2xl font-bold text-accent mb-1">1.39s</div>
+              <div class="text-xs text-text-muted">After caching</div>
+            </div>
+          </div>
+
+          <!-- Screenshots -->
+          <div class="space-y-4">
+            <img
+              src="/images/NavMenu_FullPage_Open.PNG"
+              alt="Completed course nav menu showing nested accordion with current position marker"
+              class="w-full rounded-lg border border-border"
+              loading="lazy"
+            />
+            <div class="grid grid-cols-2 gap-4">
+              <img
+                src="/images/NavMenu_RuntTime_Bad.PNG"
+                alt="Browser dev tools showing ~7 second page load before caching"
+                class="w-full rounded-lg border border-border"
+                loading="lazy"
+              />
+              <img
+                src="/images/NavMenu_RuntTime_Good.PNG"
+                alt="Browser dev tools showing 1.39 second page load after caching"
+                class="w-full rounded-lg border border-border"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- ─── Project 4: Prosper IT — Progress Bars ─── -->
+      <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
+        <summary
+          class="cursor-pointer p-6 flex items-start justify-between gap-4"
+          aria-label="Expand Dual Progress Bars case study"
+        >
+          <div class="flex-1 min-w-0">
+            <div class="font-mono text-xs text-accent mb-2 tracking-wide">Prosper IT · 2020–2021</div>
+            <h3 class="text-xl font-bold text-text-primary mb-2 leading-snug">
+              Dual Progress Bars
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed">
+              The old progress bar silently gave every student wrong information — it didn't
+              account for mandatory live project weeks. Built a new system that handles
+              variable-length bootcamps, weighted course completion, and user-configurable
+              display preferences.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              {['C#', '.NET MVC', 'JavaScript', 'jQuery', 'SQL'].map((t) => (
+                <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
+              ))}
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-180 mt-1"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+
+        <div class="px-6 pb-8 border-t border-border pt-6 space-y-6">
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Problem</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                The progress bar only reflected actual course material, leaving 2–4 weeks of
+                mandatory live project time unaccounted for. Students were systematically told
+                they were further behind than they actually were — and the discrepancy varied
+                by bootcamp length (10–16 weeks) and course page count vs. actual completion
+                time.
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Approach</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                Created a <code class="font-mono text-xs bg-bg px-1 py-0.5 rounded">LMSCourseOrder</code> join table to link courses to bootcamps,
+                allowing a single live project course to be reused across multiple camps.
+                Weighted each course by time-to-complete rather than page count. Offloaded
+                the ahead/behind calculation to JavaScript running on the client.
+              </p>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Result</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Accurate progress reporting for all bootcamp lengths. Students who complained
+              about the stress of behind-schedule warnings got per-component display toggles
+              — each bar element could be shown or hidden independently and the preference
+              persisted.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <img
+              src="/images/ProgressBar_Full_Ahead.png"
+              alt="Progress bar showing student is ahead of schedule"
+              class="w-full rounded-lg border border-border"
+              loading="lazy"
+            />
+            <img
+              src="/images/ProgressBar_Full_Behind.png"
+              alt="Progress bar showing student is behind schedule"
+              class="w-full rounded-lg border border-border"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>

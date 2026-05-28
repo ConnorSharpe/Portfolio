@@ -1,0 +1,59 @@
+---
+const stats = [
+  { value: '4+', label: 'Years professional experience' },
+  { value: 'Angular', label: 'Certified developer' },
+  { value: '3', label: 'AI frameworks (Claude · ChatGPT · Grok)' },
+];
+---
+
+<section id="about" class="py-24 px-4 sm:px-6 border-t border-border">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid md:grid-cols-3 gap-12 items-start">
+      <!-- Bio -->
+      <div class="md:col-span-2">
+        <p class="font-mono text-accent text-sm mb-3 tracking-widest uppercase">About</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-text-primary mb-8">
+          From English degree to AI systems.
+        </h2>
+
+        <div class="space-y-5 text-text-muted leading-relaxed text-base sm:text-lg">
+          <p>
+            After finishing college with an English degree, an aptitude test revealed that
+            my best talents were analytical reasoning and number pattern recognition. I took
+            that as a sign, graduated from a software bootcamp six months later, and have
+            been building things ever since.
+          </p>
+          <p>
+            I started by rebuilding an entire learning platform from scratch — nav menus,
+            progress bars, notification systems, the works. Then I spent three years at a
+            healthcare software company leading an offshore Angular team, building .NET
+            APIs, and making sure our security practices met OWASP standards.
+          </p>
+          <p>
+            Most recently I've been doing something that didn't really have a job title a
+            few years ago: building the systems that make AI agents behave. Evaluation
+            pipelines, context isolation patterns, structured handoff protocols. I use
+            Claude, ChatGPT, and Grok as structured reasoning collaborators across
+            multi-model workflows — each one serving a specific role in the pipeline.
+          </p>
+          <p>
+            I still use my English degree to write comments so good that future developers
+            write me thank-you notes (in my head).
+          </p>
+        </div>
+      </div>
+
+      <!-- Stat callouts -->
+      <div class="flex flex-col gap-4">
+        {
+          stats.map(({ value, label }) => (
+            <div class="bg-surface border border-border rounded-xl p-6">
+              <div class="text-3xl font-extrabold text-accent mb-1">{value}</div>
+              <div class="text-sm text-text-muted leading-snug">{label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

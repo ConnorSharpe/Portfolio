@@ -1,0 +1,175 @@
+---
+const links = [
+  { href: '#about', label: 'About' },
+  { href: '#approach', label: 'Approach' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header
+  id="site-header"
+  class="fixed top-0 left-0 right-0 z-50 bg-bg/90 backdrop-blur border-b border-border"
+>
+  <nav
+    class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between"
+    aria-label="Main navigation"
+  >
+    <!-- Logo -->
+    <a
+      href="#hero"
+      class="font-bold text-text-primary hover:text-accent transition-colors text-lg tracking-tight"
+      aria-label="Connor Sharpe — back to top"
+    >
+      CS
+    </a>
+
+    <!-- Desktop nav links -->
+    <ul id="nav-links" class="hidden md:flex items-center gap-6">
+      {
+        links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              data-nav-link
+              class="text-sm text-text-muted hover:text-text-primary transition-colors font-medium"
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Resume download + mobile toggle -->
+    <div class="flex items-center gap-3">
+      <a
+        href="/resume/Sharpe_AI_Resume_2026.pdf"
+        download
+        class="text-sm font-semibold border border-accent text-accent hover:bg-accent hover:text-bg transition-colors px-4 py-1.5 rounded-md"
+      >
+        Resume
+      </a>
+      <button
+        id="menu-btn"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden p-2 text-text-muted hover:text-text-primary transition-colors"
+      >
+        <svg
+          id="icon-open"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+        <svg
+          id="icon-close"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+          class="hidden"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="hidden md:hidden border-t border-border bg-bg"
+    aria-hidden="true"
+  >
+    <ul class="flex flex-col px-4 py-4 gap-1">
+      {
+        links.map(({ href, label }) => (
+          <li>
+            <a
+              href={href}
+              data-mobile-nav-link
+              class="block text-sm text-text-muted hover:text-text-primary transition-colors py-2 font-medium"
+            >
+              {label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<!-- Spacer so content doesn't hide under fixed header -->
+<div class="h-16" aria-hidden="true"></div>
+
+<script>
+  // Hamburger toggle
+  const menuBtn = document.getElementById('menu-btn')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const iconOpen = document.getElementById('icon-open')!;
+  const iconClose = document.getElementById('icon-close')!;
+
+  menuBtn.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('hidden') === false;
+    menuBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+    iconOpen.classList.toggle('hidden', isOpen);
+    iconClose.classList.toggle('hidden', !isOpen);
+  });
+
+  // Close mobile menu when a link is clicked
+  document.querySelectorAll('[data-mobile-nav-link]').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+      mobileMenu.setAttribute('aria-hidden', 'true');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    });
+  });
+
+  // Active section highlighting via IntersectionObserver
+  const sections = document.querySelectorAll<HTMLElement>('section[id]');
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]');
+
+  if (sections.length && navLinks.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((link) => {
+              const active = link.getAttribute('href') === `#${entry.target.id}`;
+              link.classList.toggle('text-accent', active);
+              link.classList.toggle('text-text-muted', !active);
+            });
+          }
+        });
+      },
+      { rootMargin: '-45% 0px -45% 0px' }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+</script>
