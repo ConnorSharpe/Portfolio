@@ -1,30 +1,16 @@
 # Task
-Portfolio Phase 1 — LIVE on Vercel, contact form fix is next
+Portfolio Phase 2 — AI Chat Widget
 
 # Current Status
-Site is fully deployed and smoke tested. Vercel is connected to `main` and auto-deploys on every push. GitHub Pages has been unpublished to stop Jekyll build failures. Resume PDF is live. All smoke test items passed. Only remaining pre-launch blocker is the Formspree contact form ID.
+Phase 1 fully complete and verified. Contact form (Formspree `xojbgqbv`) confirmed working 2026-06-01. Site live on Vercel. Phase 2 task file created: `ai/tasks/TASK-002.md`. No work started on Phase 2 yet.
 
-# What Was Accomplished This Session
-1. Copied `Sharpe_AI_Resume_2026.pdf` → `public/resume/` — committed and pushed to `main`
-2. Disabled GitHub Pages (unpublished) to stop Jekyll build failures
-3. Deployed to Vercel — connected to `ConnorSharpe/Portfolio` main branch, auto-deploy enabled
-4. Smoke tested on live Vercel URL — all items passed ✅
-
-# Smoke Test Results (PASSED 2026-06-01)
-- ✅ Page loads without console errors
-- ✅ Profile photo renders in Hero
-- ✅ All 6 nav links scroll to correct sections
-- ✅ Hamburger menu opens/closes on mobile (< 768px)
-- ✅ Resume button downloads `Sharpe_AI_Resume_2026.pdf`
-- ✅ All 4 project cards expand and collapse on click
-- ✅ Efficiency Guide link opens `/efficiency-guide.md` in new tab
-- ✅ Architecture diagram renders in Fillory AI card
-- ✅ Engineering Approach — 6 principle cards visible
-- ✅ Skills — 6 categories, blue/coral color coding correct
-- ✅ Timeline — 3 entries: Fillory AI / Office Ally / Prosper IT with tech pills
-- ✅ Mobile layout — no overlap, single-column stacking
-- ✅ Keyboard nav — focus rings on all interactive elements
-- ✅ No legacy show-on/hide-on classes present
+# What Was Accomplished (Phase 1)
+1. Built full portfolio site: Astro + Tailwind, all sections
+2. Deployed to Vercel — auto-deploys on push to `main`
+3. Disabled GitHub Pages to stop Jekyll failures
+4. Resume PDF live at `/resume/Sharpe_AI_Resume_2026.pdf`
+5. Smoke tested — all items passed ✅
+6. Contact form wired to Formspree `xojbgqbv` — email delivery confirmed ✅
 
 # Files in Repo (main)
 ```
@@ -37,65 +23,38 @@ src/
     Skills.astro
     Timeline.astro
     Projects.astro
-    Contact.astro          ← FORMSPREE_ENDPOINT placeholder needs real ID
+    Contact.astro          ← Formspree xojbgqbv, working
   layouts/Layout.astro
   pages/index.astro
   styles/global.css
 public/
-  images/                  ← all Prosper IT screenshots + profile pic
+  images/
   resume/
-    Sharpe_AI_Resume_2026.pdf  ✅
+    Sharpe_AI_Resume_2026.pdf
   efficiency-guide.md
 astro.config.mjs
 tailwind.config.mjs
 package.json
 ```
 
-# Next Task — Fix Contact Form (Formspree)
-
-**File:** `src/components/Contact.astro`
-**Line:** 3
-**Change:** Replace `YOUR_FORM_ID` with real Formspree form ID
-
-```
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-```
-
-**Steps for next agent:**
-1. Sign up / log in at formspree.io
-2. Create a new form → set email to `connor.sharpe92@gmail.com`
-3. Copy the form ID (looks like `xpwzabcd`)
-4. Edit `src/components/Contact.astro` line 3 — replace `YOUR_FORM_ID`
-5. Build locally to verify: `npm run build`
-6. Commit and push to main — Vercel auto-deploys
-7. Test the live contact form end-to-end (fill + submit → check email arrives)
-
-**Allowed files:**
-- `src/components/Contact.astro`
-
-**Forbidden files:**
-- All other components
-- `public/*`
-- `astro.config.mjs`
+# Next Task — Phase 2: AI Chat Widget
+See `ai/tasks/TASK-002.md` for full spec.
 
 # Remaining Work
 
-**Phase 2 (after contact form is live):**
-- AI chat widget: `src/components/ChatWidget.astro` + Vercel Edge Function + Claude API
-- System prompt: resume + project summaries + behavioral constraints
-- Rate limit: 5 messages/session
+**Phase 2 (active):**
+- AI chat widget — see TASK-002.md
 
 **Phase 3 (polish):**
 - Social preview image (1200×630) → `public/social-preview.png`
 - Light mode toggle
 - Re-enable sitemap with live domain
 - `robots.txt`
-- Image compression (profile pic is 3MB — worth optimizing)
+- Image compression (profile pic is 3MB)
 
 # Known Issues / Open Items
-- Formspree ID is a placeholder — contact form will fail submission until configured (NEXT TASK)
-- `social-preview.png` does not exist — OG/Twitter card will 404 when URL is shared (Phase 3)
-- `Portfolio_Profile_Pic.png` is 3MB uncompressed — fine for now, optimize in Phase 3
+- `social-preview.png` missing — OG/Twitter card will 404 when URL is shared (Phase 3)
+- `Portfolio_Profile_Pic.png` is 3MB uncompressed — optimize in Phase 3
 
 # Context Notes
 - branch: main
