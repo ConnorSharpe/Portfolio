@@ -1,19 +1,30 @@
 # Task
-Portfolio Phase 1 — shipped to GitHub, ready for smoke test and Vercel deploy
+Portfolio Phase 1 — LIVE on Vercel, contact form fix is next
 
 # Current Status
-Phase 1 is LIVE on GitHub (`main`, 3 commits ahead of where we started). The old Bootstrap 3 / jQuery site has been fully replaced with an Astro 4 + Tailwind 3 project. All legacy files deleted. Repo pushed to `ConnorSharpe/Portfolio` via corrected SSH config (personal key `github_personal` on alias `github-personal`). Site is not yet deployed — next step is Vercel connection and smoke test via `astro preview` locally.
+Site is fully deployed and smoke tested. Vercel is connected to `main` and auto-deploys on every push. GitHub Pages has been unpublished to stop Jekyll build failures. Resume PDF is live. All smoke test items passed. Only remaining pre-launch blocker is the Formspree contact form ID.
 
 # What Was Accomplished This Session
-1. Scaffolded Astro 4 + Tailwind 3 project on feature branch `task/001-phase1-build`
-2. Built all 7 sections: Hero, About, Engineering Approach, Skills, Experience Timeline, Projects (4 case studies), Contact
-3. Published Efficiency Guide to `public/efficiency-guide.md` — linked from Fillory AI project card
-4. Copied all Prosper IT screenshots to `public/images/`
-5. `npm run build` verified clean (4.3KB JS / 16KB CSS)
-6. Squash-merged to main, deleted worktree and feature branch
-7. Deleted 34 legacy files: `index.html`, `css/`, `js/`, `fonts/`, `webfonts/`
-8. Fixed SSH multi-account conflict: added `~/.ssh/github_personal` key + `github-personal` host alias in `~/.ssh/config`
-9. Pushed to `git@github-personal:ConnorSharpe/Portfolio.git` ✅
+1. Copied `Sharpe_AI_Resume_2026.pdf` → `public/resume/` — committed and pushed to `main`
+2. Disabled GitHub Pages (unpublished) to stop Jekyll build failures
+3. Deployed to Vercel — connected to `ConnorSharpe/Portfolio` main branch, auto-deploy enabled
+4. Smoke tested on live Vercel URL — all items passed ✅
+
+# Smoke Test Results (PASSED 2026-06-01)
+- ✅ Page loads without console errors
+- ✅ Profile photo renders in Hero
+- ✅ All 6 nav links scroll to correct sections
+- ✅ Hamburger menu opens/closes on mobile (< 768px)
+- ✅ Resume button downloads `Sharpe_AI_Resume_2026.pdf`
+- ✅ All 4 project cards expand and collapse on click
+- ✅ Efficiency Guide link opens `/efficiency-guide.md` in new tab
+- ✅ Architecture diagram renders in Fillory AI card
+- ✅ Engineering Approach — 6 principle cards visible
+- ✅ Skills — 6 categories, blue/coral color coding correct
+- ✅ Timeline — 3 entries: Fillory AI / Office Ally / Prosper IT with tech pills
+- ✅ Mobile layout — no overlap, single-column stacking
+- ✅ Keyboard nav — focus rings on all interactive elements
+- ✅ No legacy show-on/hide-on classes present
 
 # Files in Repo (main)
 ```
@@ -26,83 +37,50 @@ src/
     Skills.astro
     Timeline.astro
     Projects.astro
-    Contact.astro
+    Contact.astro          ← FORMSPREE_ENDPOINT placeholder needs real ID
   layouts/Layout.astro
   pages/index.astro
   styles/global.css
 public/
-  images/           ← all Prosper IT screenshots + profile pic
-  resume/           ← EMPTY — resume PDF not yet copied here
+  images/                  ← all Prosper IT screenshots + profile pic
+  resume/
+    Sharpe_AI_Resume_2026.pdf  ✅
   efficiency-guide.md
 astro.config.mjs
 tailwind.config.mjs
 package.json
 ```
 
-# Two Required Steps Before Full Launch
+# Next Task — Fix Contact Form (Formspree)
 
-1. **Resume PDF** — copy `Sharpe_AI_Resume_2026.pdf` to `public/resume/` and push:
-   ```powershell
-   copy "C:\Users\conno\OneDrive\Desktop\2026 Job Search\Sharpe_AI_Resume_2026.pdf" "C:\Users\conno\source\repos\Portfolio\public\resume\Sharpe_AI_Resume_2026.pdf"
-   git -C "C:/Users/conno/source/repos/Portfolio" add public/resume/
-   git -C "C:/Users/conno/source/repos/Portfolio" commit -m "add resume PDF"
-   git -C "C:/Users/conno/source/repos/Portfolio" push
-   ```
+**File:** `src/components/Contact.astro`
+**Line:** 3
+**Change:** Replace `YOUR_FORM_ID` with real Formspree form ID
 
-2. **Formspree ID** — sign up at formspree.io, create a form → `connor.sharpe92@gmail.com`, copy the form ID, replace `YOUR_FORM_ID` in `src/components/Contact.astro` line 3:
-   ```
-   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
-   ```
-
-# Smoke Test (Run Locally Before Vercel)
-
-```powershell
-# From the Portfolio directory
-cd "C:/Users/conno/source/repos/Portfolio"
-npm run build
-npm run preview
-# Opens at http://localhost:4321 — keep it running while you test
+```
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
 ```
 
-**Smoke test checklist:**
-- [ ] Page loads without console errors (open DevTools → Console)
-- [ ] Profile photo renders in Hero
-- [ ] All 6 nav links scroll to the correct section
-- [ ] Hamburger menu opens/closes on mobile (resize window to < 768px)
-- [ ] Resume button: correct download behavior (will 404 until PDF is added)
-- [ ] All 4 project cards expand and collapse cleanly via click
-- [ ] Efficiency Guide link opens `/efficiency-guide.md` in a new tab
-- [ ] Architecture diagram renders in Fillory AI project card (3 boxes with arrows)
-- [ ] Contact form: fill all fields and submit — should show success message (needs Formspree ID first) or graceful error
-- [ ] Engineering Approach: 6 principle cards visible
-- [ ] Skills: all 6 categories with correct color coding (blue / coral for AI & Security)
-- [ ] Timeline: 3 job entries (Fillory AI / Office Ally / Prosper IT) with tech pills
-- [ ] Mobile layout: no content overlap, single-column stacking, photo above text in Hero
-- [ ] Keyboard nav: Tab through the page — every interactive element gets a visible focus ring
-- [ ] No `.show-on-mobile` / `.hide-on-mobile` classes anywhere (they're gone, just confirming)
+**Steps for next agent:**
+1. Sign up / log in at formspree.io
+2. Create a new form → set email to `connor.sharpe92@gmail.com`
+3. Copy the form ID (looks like `xpwzabcd`)
+4. Edit `src/components/Contact.astro` line 3 — replace `YOUR_FORM_ID`
+5. Build locally to verify: `npm run build`
+6. Commit and push to main — Vercel auto-deploys
+7. Test the live contact form end-to-end (fill + submit → check email arrives)
 
-**Quick console check:**
-```js
-// Paste in DevTools console to confirm no duplicate content blocks exist
-document.querySelectorAll('[class*="show-on"]').length  // should be 0
-document.querySelectorAll('[class*="hide-on"]').length  // should be 0
-```
+**Allowed files:**
+- `src/components/Contact.astro`
 
-# Vercel Deploy (After Smoke Test Passes)
-
-1. Go to vercel.com → Add New Project → Import Git Repository
-2. Select `ConnorSharpe/Portfolio`
-3. Vercel auto-detects Astro — default settings are correct:
-   - Build command: `astro build`
-   - Output directory: `dist`
-   - Install command: `npm install`
-4. Deploy
-5. Once live, update `site` in `astro.config.mjs` to your Vercel URL (or custom domain)
-6. Re-add `@astrojs/sitemap` to `astro.config.mjs` integrations after domain is set
+**Forbidden files:**
+- All other components
+- `public/*`
+- `astro.config.mjs`
 
 # Remaining Work
 
-**Phase 2 (evaluate after site is live and performing):**
+**Phase 2 (after contact form is live):**
 - AI chat widget: `src/components/ChatWidget.astro` + Vercel Edge Function + Claude API
 - System prompt: resume + project summaries + behavioral constraints
 - Rate limit: 5 messages/session
@@ -115,13 +93,14 @@ document.querySelectorAll('[class*="hide-on"]').length  // should be 0
 - Image compression (profile pic is 3MB — worth optimizing)
 
 # Known Issues / Open Items
-- `public/resume/` is empty — resume download button 404s until PDF is added
-- `social-preview.png` does not exist — OG/Twitter card image will 404 when URL is shared until Phase 3
-- Formspree ID is a placeholder — contact form will fail submission until configured
-- `Portfolio_Profile_Pic.png` is 3MB uncompressed — fine for launch, worth compressing before Phase 3
+- Formspree ID is a placeholder — contact form will fail submission until configured (NEXT TASK)
+- `social-preview.png` does not exist — OG/Twitter card will 404 when URL is shared (Phase 3)
+- `Portfolio_Profile_Pic.png` is 3MB uncompressed — fine for now, optimize in Phase 3
 
 # Context Notes
 - branch: main
-- worktree: N/A (cleaned up)
-- SSH: personal account uses `git@github-personal:ConnorSharpe/...` — remember this for any new ConnorSharpe repos
+- worktree: N/A
+- Vercel: connected to `ConnorSharpe/Portfolio`, auto-deploys on push to main
+- GitHub Pages: unpublished — do not re-enable
+- SSH: personal account uses `git@github-personal:ConnorSharpe/...`
 - context pressure: low
