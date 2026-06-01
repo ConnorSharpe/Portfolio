@@ -1,8 +1,8 @@
 # Task
-Portfolio Phase 2 — AI Chat Widget
+TASK-002: AI Chat Widget — Phase 2
 
 # Current Status
-Phase 1 fully complete and verified. Contact form (Formspree `xojbgqbv`) confirmed working 2026-06-01. Site live on Vercel. Phase 2 task file created: `ai/tasks/TASK-002.md`. No work started on Phase 2 yet.
+Phase 2 implementation complete. Build passes clean. Awaiting: (1) Connor fills `src/data/chat-context.ts` with real content, (2) `GOOGLE_AI_API_KEY` provisioned in Vercel env vars. Then push to main → auto-deploy.
 
 # What Was Accomplished (Phase 1)
 1. Built full portfolio site: Astro + Tailwind, all sections
@@ -37,13 +37,24 @@ tailwind.config.mjs
 package.json
 ```
 
-# Next Task — Phase 2: AI Chat Widget
-See `ai/tasks/TASK-002.md` for full spec.
+# Files Modified (Phase 2)
+- `src/data/chat-context.ts` — new, scaffolded (Connor must fill in content)
+- `src/components/ChatWidget.astro` — new, fully implemented
+- `api/chat.ts` — new, Vercel Serverless Function
+- `src/pages/index.astro` — import + `<ChatWidget />` added
+- `package.json` — `@google/generative-ai` added
+
+# Verification Results
+- `npm run build`: PASS ✅
+- Manual UI test: pending (requires Vercel env var)
 
 # Remaining Work
 
-**Phase 2 (active):**
-- AI chat widget — see TASK-002.md
+**Phase 2 (blocked on Connor):**
+- [ ] TODO: Fill in `src/data/chat-context.ts` with actual bio, skills, work history, projects
+- [ ] TODO: Provision `GOOGLE_AI_API_KEY` in Vercel dashboard → Environment Variables
+- Push to main → Vercel auto-deploys
+- Run verification checklist from TASK-002.md
 
 **Phase 3 (polish):**
 - Social preview image (1200×630) → `public/social-preview.png`
