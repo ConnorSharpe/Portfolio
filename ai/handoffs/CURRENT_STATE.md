@@ -1,155 +1,127 @@
 # Task
-Portfolio Phase 1 build — Astro + Tailwind site, all sections, build verified
+Portfolio Phase 1 — shipped to GitHub, ready for smoke test and Vercel deploy
 
 # Current Status
-Phase 1 implementation COMPLETE. Astro + Tailwind site built and verified (`npm run build` passes cleanly). All 7 sections implemented with spec-accurate content, accessible markup, and zero-duplicate-HTML responsive layout. Worktree is `C:/Users/conno/source/repos/portfolio-build` on branch `task/001-phase1-build`. Ready to merge to main after two manual content steps (resume PDF + Formspree ID).
+Phase 1 is LIVE on GitHub (`main`, 3 commits ahead of where we started). The old Bootstrap 3 / jQuery site has been fully replaced with an Astro 4 + Tailwind 3 project. All legacy files deleted. Repo pushed to `ConnorSharpe/Portfolio` via corrected SSH config (personal key `github_personal` on alias `github-personal`). Site is not yet deployed — next step is Vercel connection and smoke test via `astro preview` locally.
 
-# Files Modified
-New Astro project scaffolded in worktree. New files:
-- `package.json`, `astro.config.mjs`, `tailwind.config.mjs`, `tsconfig.json`, `.gitignore`
-- `src/styles/global.css`
-- `src/layouts/Layout.astro`
-- `src/pages/index.astro`
-- `src/components/Nav.astro`
-- `src/components/Hero.astro`
-- `src/components/About.astro`
-- `src/components/EngineeringApproach.astro`
-- `src/components/Skills.astro`
-- `src/components/Timeline.astro`
-- `src/components/Projects.astro`
-- `src/components/Contact.astro`
-- `public/efficiency-guide.md`
-- `public/images/` (all Prosper IT screenshots + profile pic)
-- `public/resume/` (directory created; PDF is a manual copy step)
-- `ai/handoffs/CURRENT_STATE.md` (this file)
+# What Was Accomplished This Session
+1. Scaffolded Astro 4 + Tailwind 3 project on feature branch `task/001-phase1-build`
+2. Built all 7 sections: Hero, About, Engineering Approach, Skills, Experience Timeline, Projects (4 case studies), Contact
+3. Published Efficiency Guide to `public/efficiency-guide.md` — linked from Fillory AI project card
+4. Copied all Prosper IT screenshots to `public/images/`
+5. `npm run build` verified clean (4.3KB JS / 16KB CSS)
+6. Squash-merged to main, deleted worktree and feature branch
+7. Deleted 34 legacy files: `index.html`, `css/`, `js/`, `fonts/`, `webfonts/`
+8. Fixed SSH multi-account conflict: added `~/.ssh/github_personal` key + `github-personal` host alias in `~/.ssh/config`
+9. Pushed to `git@github-personal:ConnorSharpe/Portfolio.git` ✅
 
-# Files Required Next (Phase 2 — AI Demo)
-- `src/components/ChatWidget.astro` (new)
-- `src/pages/api/chat.ts` (Vercel Edge Function, new)
-- `.env` with `ANTHROPIC_API_KEY`
+# Files in Repo (main)
+```
+src/
+  components/
+    Nav.astro
+    Hero.astro
+    About.astro
+    EngineeringApproach.astro
+    Skills.astro
+    Timeline.astro
+    Projects.astro
+    Contact.astro
+  layouts/Layout.astro
+  pages/index.astro
+  styles/global.css
+public/
+  images/           ← all Prosper IT screenshots + profile pic
+  resume/           ← EMPTY — resume PDF not yet copied here
+  efficiency-guide.md
+astro.config.mjs
+tailwind.config.mjs
+package.json
+```
 
-# Files Already Reviewed
-- `index.html` — audited, lines 187–377 used as source for Prosper IT case studies (reformatted, not reused verbatim)
-- `PORTFOLIO_REVAMP_SPEC.md` — v1.4, all content implemented
+# Two Required Steps Before Full Launch
 
-# Dependency Chain
+1. **Resume PDF** — copy `Sharpe_AI_Resume_2026.pdf` to `public/resume/` and push:
+   ```powershell
+   copy "C:\Users\conno\OneDrive\Desktop\2026 Job Search\Sharpe_AI_Resume_2026.pdf" "C:\Users\conno\source\repos\Portfolio\public\resume\Sharpe_AI_Resume_2026.pdf"
+   git -C "C:/Users/conno/source/repos/Portfolio" add public/resume/
+   git -C "C:/Users/conno/source/repos/Portfolio" commit -m "add resume PDF"
+   git -C "C:/Users/conno/source/repos/Portfolio" push
+   ```
 
-Editing: all new files in `src/` and `public/`
+2. **Formspree ID** — sign up at formspree.io, create a form → `connor.sharpe92@gmail.com`, copy the form ID, replace `YOUR_FORM_ID` in `src/components/Contact.astro` line 3:
+   ```
+   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+   ```
 
-Requires from Connor (two remain manual):
-- Resume PDF: `Sharpe_AI_Resume_2026.pdf` → `public/resume/` ⚠️ MANUAL COPY
-- Formspree ID: replace `YOUR_FORM_ID` in `src/components/Contact.astro` line 3 ⚠️
+# Smoke Test (Run Locally Before Vercel)
 
-Irrelevant:
-- `.git/`
-- `README.md`
-- `PORTFOLIO_REVAMP_SPEC.md`
+```powershell
+# From the Portfolio directory
+cd "C:/Users/conno/source/repos/Portfolio"
+npm run build
+npm run preview
+# Opens at http://localhost:4321 — keep it running while you test
+```
 
-Old files to delete AFTER merge:
-- `index.html`, `css/`, `js/`, `fonts/`, `webfonts/`
+**Smoke test checklist:**
+- [ ] Page loads without console errors (open DevTools → Console)
+- [ ] Profile photo renders in Hero
+- [ ] All 6 nav links scroll to the correct section
+- [ ] Hamburger menu opens/closes on mobile (resize window to < 768px)
+- [ ] Resume button: correct download behavior (will 404 until PDF is added)
+- [ ] All 4 project cards expand and collapse cleanly via click
+- [ ] Efficiency Guide link opens `/efficiency-guide.md` in a new tab
+- [ ] Architecture diagram renders in Fillory AI project card (3 boxes with arrows)
+- [ ] Contact form: fill all fields and submit — should show success message (needs Formspree ID first) or graceful error
+- [ ] Engineering Approach: 6 principle cards visible
+- [ ] Skills: all 6 categories with correct color coding (blue / coral for AI & Security)
+- [ ] Timeline: 3 job entries (Fillory AI / Office Ally / Prosper IT) with tech pills
+- [ ] Mobile layout: no content overlap, single-column stacking, photo above text in Hero
+- [ ] Keyboard nav: Tab through the page — every interactive element gets a visible focus ring
+- [ ] No `.show-on-mobile` / `.hide-on-mobile` classes anywhere (they're gone, just confirming)
 
-# Architecture Notes
+**Quick console check:**
+```js
+// Paste in DevTools console to confirm no duplicate content blocks exist
+document.querySelectorAll('[class*="show-on"]').length  // should be 0
+document.querySelectorAll('[class*="hide-on"]').length  // should be 0
+```
 
-Stack: Astro 4 + Tailwind 3. Static output. Vercel-ready.
+# Vercel Deploy (After Smoke Test Passes)
 
-Bundle size:
-- JS: 4.3KB raw / 1.93KB gzip
-- CSS: 16KB
-
-JS usage (minimal):
-- Nav: IntersectionObserver (active section) + hamburger toggle (aria-expanded)
-- Timeline: scroll fade-in (prefers-reduced-motion safe)
-- Contact: async Formspree submit with success/error feedback
-
-Zero extra JS: project card expand/collapse uses `<details>/<summary>` (semantic, accessible)
-
-Accessibility:
-- lang="en", aria-labels on icon links, alt on all images
-- :focus-visible ring, prefers-reduced-motion respected
-- h1 → h2 → h3 heading hierarchy
-
-Efficiency Guide: published at `/efficiency-guide.md`, linked from Fillory AI project card
-
-Sitemap: disabled temporarily (re-add @astrojs/sitemap after live domain is set)
-
-# Decisions Made
-- Astro 4 + Tailwind 3 (proven stable over Astro 5 + Tailwind 4)
-- Analytics: default import from `@vercel/analytics/astro` (named export not available in installed version)
-- `DarkMode_C#.PNG` removed from `public/images/` — `#` in filename breaks Astro static file handling; file was unused
-- Sitemap integration disabled (version incompatibility; domain not live yet)
-- Timeline: vertical layout (dot + card) instead of alternating — cleaner on mobile
-- Engineering Approach: 6 principles active, 2 commented out for Connor to review
+1. Go to vercel.com → Add New Project → Import Git Repository
+2. Select `ConnorSharpe/Portfolio`
+3. Vercel auto-detects Astro — default settings are correct:
+   - Build command: `astro build`
+   - Output directory: `dist`
+   - Install command: `npm install`
+4. Deploy
+5. Once live, update `site` in `astro.config.mjs` to your Vercel URL (or custom domain)
+6. Re-add `@astrojs/sitemap` to `astro.config.mjs` integrations after domain is set
 
 # Remaining Work
 
-**Before merge:**
-1. ⚠️ Copy `Sharpe_AI_Resume_2026.pdf` → `public/resume/Sharpe_AI_Resume_2026.pdf`
-2. ⚠️ Sign up at formspree.io, create form, replace `YOUR_FORM_ID` in `Contact.astro:3`
-3. Review Engineering Approach principles — trim to 4–6 in your voice
-
-**After merge:**
-4. Delete old files: `index.html`, `css/`, `js/`, `fonts/`, `webfonts/`
-5. Connect repo to Vercel (auto-detects Astro via package.json)
-6. Set live domain → update `site` in `astro.config.mjs` → re-add sitemap integration
-7. Lighthouse audit (target: Performance ≥ 90, Accessibility ≥ 90, SEO ≥ 90)
-8. Test contact form end-to-end
-
-**Phase 2 (after site is live):**
-- AI chat widget: ChatWidget component + Vercel Edge Function + Claude API
+**Phase 2 (evaluate after site is live and performing):**
+- AI chat widget: `src/components/ChatWidget.astro` + Vercel Edge Function + Claude API
+- System prompt: resume + project summaries + behavioral constraints
 - Rate limit: 5 messages/session
 
 **Phase 3 (polish):**
 - Social preview image (1200×630) → `public/social-preview.png`
 - Light mode toggle
-- Scroll entrance animations (more components)
-- robots.txt, sitemap.xml, image compression
+- Re-enable sitemap with live domain
+- `robots.txt`
+- Image compression (profile pic is 3MB — worth optimizing)
 
-# Known Risks / Open Questions
-- No `social-preview.png` yet — OG/Twitter cards reference it; broken unfurl image until created
-- Old files remain in repo until post-merge cleanup (don't affect Astro build)
-- Vercel domain: confirm redirect setup before deploy
-- Formspree free tier: 50 submissions/month — upgrade if needed
-
-# Verification Results
-- npm install: PASS
-- npm run build: PASS (1 page, 975ms, no errors)
-- Sections: hero ✓, about ✓, approach ✓, skills ✓, experience ✓, projects ✓, contact ✓
-- JS: 4.3KB ✓
-- No IE8 polyfills ✓
-- No Bootstrap ✓
-- No duplicate HTML blocks ✓
-- aria-labels on icon links ✓
-- alt text on all images ✓
-- prefers-reduced-motion respected ✓
-
-# Recommended Next Action
-Complete the two manual steps (resume PDF copy + Formspree ID), then run the PowerShell Merge Block below from main.
-
-# Forbidden Exploration
-- `css/bootstrap*.css` — do not port
-- `js/bootstrap.min.js` — do not port
-- `index.html` modal content — already reformatted into components, do not re-source
+# Known Issues / Open Items
+- `public/resume/` is empty — resume download button 404s until PDF is added
+- `social-preview.png` does not exist — OG/Twitter card image will 404 when URL is shared until Phase 3
+- Formspree ID is a placeholder — contact form will fail submission until configured
+- `Portfolio_Profile_Pic.png` is 3MB uncompressed — fine for launch, worth compressing before Phase 3
 
 # Context Notes
-- branch: task/001-phase1-build
-- worktree: C:/Users/conno/source/repos/portfolio-build
-- context pressure: low (session completing cleanly)
-- token usage concerns: none
-
-# PowerShell Merge Block
-
-Run these commands from main. Do not switch branches.
-
-```powershell
-# 1. Stage and commit inside the worktree (without leaving main)
-git -C "C:/Users/conno/source/repos/portfolio-build" add .
-git -C "C:/Users/conno/source/repos/portfolio-build" commit -m "TASK-001: build Phase 1 portfolio — Astro + Tailwind, all sections, verified build"
-
-# 2. Squash-merge the feature branch into main
-git merge --squash task/001-phase1-build
-git commit -m "TASK-001: build Phase 1 portfolio — Astro + Tailwind, all sections, verified build"
-
-# 3. Clean up — remove worktree and delete feature branch
-git worktree remove "C:/Users/conno/source/repos/portfolio-build" --force
-git branch -D task/001-phase1-build
-```
+- branch: main
+- worktree: N/A (cleaned up)
+- SSH: personal account uses `git@github-personal:ConnorSharpe/...` — remember this for any new ConnorSharpe repos
+- context pressure: low
