@@ -14,7 +14,157 @@
 
     <div class="flex flex-col gap-6">
 
-      <!-- ─── Project 1: Fillory AI ─── -->
+      <!-- ─── Project 1: Kitchen Keeper ─── -->
+      <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
+        <summary
+          class="cursor-pointer p-6 flex items-start justify-between gap-4"
+          aria-label="Expand Kitchen Keeper case study"
+        >
+          <div class="flex-1 min-w-0">
+            <div class="font-mono text-xs text-accent mb-2 tracking-wide">Personal Project · 2026</div>
+            <h3 class="text-xl font-bold text-text-primary mb-2 leading-snug">
+              Kitchen Keeper — AI-Powered Food Waste Management
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Designed, built, and shipped a full-stack household pantry app end-to-end and solo:
+              receipt scanning, AI meal suggestions, shared real-time pantries, and a kitchen chat
+              assistant — live in production today.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              {['React', 'Node.js/Express', 'Postgres (Neon)', 'Drizzle ORM', 'OpenAI', 'Clerk', 'Vercel'].map((t) => (
+                <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
+              ))}
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-180 mt-1"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+
+        <div class="px-6 pb-8 border-t border-border pt-6 space-y-8">
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Problem</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                Households lose track of what's actually in the pantry, so food quietly expires
+                before anyone gets to it. Manual inventory apps are too tedious to keep up to
+                date, and single-user tools don't reflect how a kitchen is actually shared —
+                multiple people buying, cooking, and pulling from the same shelves.
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Approach</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                Removed the friction from entry first — photograph a grocery receipt and AI
+                vision extracts and adds every item automatically. Layered AI meal suggestions
+                on top, generated from whatever is closest to expiring, plus a freeform chat
+                assistant for kitchen questions. Household membership is shared in real time so
+                every member sees the same pantry, recipes, and lists.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Architecture</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              React + Vite frontend on Tailwind CSS, Node.js/Express backend running as Vercel
+              serverless functions, Neon Postgres via Drizzle ORM, Clerk for authentication, and
+              OpenAI for receipt vision, meal suggestions, and the chat assistant. Vercel Blob
+              handles image uploads; a PWA service worker provides offline/installable support.
+            </p>
+          </div>
+
+          <!-- Engineering constraints -->
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-4 uppercase tracking-wide font-mono">Engineering Notes</h4>
+            <div class="space-y-4">
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Stale-Deploy Cache Bug, Caught in Production</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  A returning visitor's service worker kept serving a cached shell referencing
+                  the previous deployment's JS bundle hash — invisible in dev, but a blank white
+                  screen in the wild after any real deploy. Fixed with a network-first strategy
+                  for navigation requests, keeping cache-first for content-hashed assets. Verified
+                  by forcing two builds with different bundle hashes and confirming a returning
+                  session always picks up the current one.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Per-User Rate Limiting, Verified Cross-Account</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  Added a keyed rate limiter on household-join attempts to stop code-guessing.
+                  Didn't just trust the code — tested it against two separate accounts in the
+                  same time window to confirm the limiter throttles per-user, not globally or
+                  per-household.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Solo Production Hardening Pass</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  Audited and pinned dependency versions, removed dead auth code and unused
+                  packages, and added request-scoped diagnostics to error paths — all verified
+                  against real production traffic and logs, not just local tests, before and
+                  after each deploy.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Result</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Live in production with real households using it daily to cut food waste. Built,
+              deployed, and hardened independently — architecture, feature work, security
+              review, and production incident response, all solo.
+            </p>
+          </div>
+
+          <!-- Live demo -->
+          <div class="bg-bg border border-accent/30 rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+            <div>
+              <div class="font-mono text-xs text-accent mb-2 tracking-wide uppercase">Live Product</div>
+              <p class="text-sm text-text-muted leading-relaxed">
+                Sign-up is open — try it yourself.
+              </p>
+            </div>
+            <div class="flex gap-4">
+              <a
+                href="https://kitchenkeeper.kitchen"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors"
+              >
+                Visit Kitchen Keeper
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <a
+                href="https://github.com/ConnorSharpe/kitchen-keeper"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:text-accent/80 transition-colors"
+              >
+                View Source
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </details>
+
+      <!-- ─── Project 2: Fillory AI ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
@@ -176,7 +326,7 @@
         </div>
       </details>
 
-      <!-- ─── Project 2: Office Ally ─── -->
+      <!-- ─── Project 3: Office Ally ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
@@ -255,7 +405,7 @@
         </div>
       </details>
 
-      <!-- ─── Project 3: Prosper IT — Nav Menu ─── -->
+      <!-- ─── Project 4: Prosper IT — Nav Menu ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
@@ -366,7 +516,7 @@
         </div>
       </details>
 
-      <!-- ─── Project 4: Prosper IT — Progress Bars ─── -->
+      <!-- ─── Project 5: Prosper IT — Progress Bars ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
