@@ -47,7 +47,7 @@
   <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-3 text-sm" aria-live="polite" aria-atomic="false">
     <div class="flex justify-start">
       <div class="max-w-[80%] rounded-lg px-3 py-2 bg-bg-secondary text-text-primary">
-        Hey — I can answer questions about Connor's work, skills, and experience. What do you want to know?
+        Hey - I can answer questions about Connor's work, skills, and experience. What do you want to know?
       </div>
     </div>
   </div>
@@ -184,16 +184,16 @@
       if (data.reply) {
         appendMessage(data.reply, 'assistant');
       } else if (data.error === 'Request timed out') {
-        appendMessage('Request timed out — try again.', 'assistant');
+        appendMessage('Request timed out - try again.', 'assistant');
       } else {
-        appendMessage('Something went wrong — try again.', 'assistant');
+        appendMessage('Something went wrong - try again.', 'assistant');
       }
     } catch (err: unknown) {
       const error = err as Error;
       if (error.name === 'TimeoutError' || error.name === 'AbortError') {
-        appendMessage('Request timed out — try again.', 'assistant');
+        appendMessage('Request timed out - try again.', 'assistant');
       } else {
-        appendMessage('Something went wrong — try again.', 'assistant');
+        appendMessage('Something went wrong - try again.', 'assistant');
       }
     } finally {
       setLoading(false);

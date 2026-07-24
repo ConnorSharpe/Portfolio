@@ -1,7 +1,7 @@
 # AI Development Agent Efficiency Guide
 ## Deterministic Context + Handoff Protocol for Claude Code / Multi-Agent Systems
 
-Version: 2026-05 (Architect Revision 4)
+Version: 2026-07 (v3 - Architect Revision 4 + Addendum v3: New Context Mechanisms)
 
 Author: Connor Sharpe
 
@@ -505,7 +505,7 @@ Bad:
 
 # Preferred Workflow
 
-## Phase 0 — Orientation
+## Phase 0 - Orientation
 Read ONLY:
 - CURRENT_STATE.md
 - TASK file
@@ -517,7 +517,7 @@ No repo searching yet.
 
 ---
 
-## Phase 1 — Investigation
+## Phase 1 - Investigation
 
 Rules:
 - inspect allowed files only
@@ -539,7 +539,7 @@ Irrelevant:
 
 ---
 
-## Phase 2 — Planning
+## Phase 2 - Planning
 
 Produce:
 - minimal change plan
@@ -557,7 +557,7 @@ Recommended:
 
 ---
 
-## Phase 3 — Implementation
+## Phase 3 - Implementation
 
 Requirements:
 - smallest viable diff
@@ -568,7 +568,7 @@ Requirements:
 
 ---
 
-## Phase 4 — Verification
+## Phase 4 - Verification
 
 Run:
 - targeted tests only
@@ -587,7 +587,7 @@ Verification:
 
 ---
 
-## Phase 5 — Handoff Compression
+## Phase 5 - Handoff Compression
 
 Before ending session:
 
@@ -815,7 +815,7 @@ git -C <WORKTREE_PATH> commit -m "<TASK-ID>: <one-line summary of changes>"
 git merge --squash <FEATURE_BRANCH>
 git commit -m "<TASK-ID>: <one-line summary of changes>"
 
-# 3. Clean up — remove worktree and delete feature branch
+# 3. Clean up - remove worktree and delete feature branch
 git worktree remove <WORKTREE_PATH> --force
 git branch -D <FEATURE_BRANCH>
 ```
@@ -830,3 +830,164 @@ git branch -D <FEATURE_BRANCH>
 - Use `--squash` for all merges. No merge commits. No rebase.
 - Commit message format: `<TASK-ID>: <concise imperative summary>`.
 - Always include cleanup commands (step 3).
+
+---
+
+# Addendum v3 - New Context Mechanisms (2026-07)
+
+This addendum extends the guide above. It does not replace any existing section.
+It adds mechanisms that emerged after the prior revision - some official (Anthropic platform features),
+some ecosystem tooling. Treat official items as stable; treat community tools as unaudited, measure before adopting.
+
+---
+
+# New Section: Server-Side Compaction
+
+Anthropic now offers native compaction as a platform feature (beta): the server summarizes
+older conversation turns and continues past the context limit automatically.
+
+Relationship to existing rules:
+
+- Does NOT replace `CURRENT_STATE.md` handoffs.
+- Handoffs remain more deterministic, auditable, and cross-session portable.
+- Server-side compaction is a fallback for in-session overflow, not a substitute for explicit handoff protocol.
+- Note: cached prompt prefixes still occupy the context window. Prompt caching changes cost, not token count.
+
+Rule:
+
+> Use explicit handoffs as primary continuity mechanism.
+> Treat automatic compaction as a safety net, not a strategy.
+
+---
+
+# New Section: Context Editing Primitives
+
+Two lighter-weight levers now exist below full compaction / session restart:
+
+## Tool-Result Clearing
+Stale tool outputs can be cleared from context without summarizing or restarting the session.
+
+## Thinking-Block Clearing
+Old extended-thinking blocks can be cleared independently of tool results.
+
+Use these before reaching for "restart session aggressively" (Rule 5 above). Restarting remains correct
+when scope/architecture changes; clearing is correct when only stale intermediate artifacts are the problem.
+
+Updated escalation order:
+
+```txt
+1. Tool-result clearing        (stale tool output only)
+2. Thinking-block clearing      (stale reasoning only)
+3. Compaction                   (summarize + continue)
+4. Session restart               (scope/architecture change)
+```
+
+---
+
+# New Section: Code-Execution Tool Calling
+
+Direct tool calls cost context twice: once for the tool definition, once for the raw result.
+
+Prefer, where the harness supports it:
+
+> Have the agent write code that calls the tool and processes the result programmatically.
+> Only the distilled output re-enters context - not the raw payload.
+
+This is distinct from "filtered outputs / server-side summarization" already listed under
+Tool/MCP Optimization Rules above - it's a different mechanism (code mediates the call) rather
+than a different output shape.
+
+Add to Tool/MCP Optimization Rules:
+
+```md
+Prefer:
+- code-mediated tool calls over direct tool calls, when supported
+- raw payloads processed outside the context window, not inside it
+```
+
+---
+
+# New Section: MCP Tool-Schema Budgeting
+
+Loaded MCP tool *definitions* consume context before any conversation starts - independent of
+tool call outputs. Sessions with many active MCP servers have been measured burning 60K+ tokens
+on schemas alone before the first user message.
+
+New rule:
+
+```md
+# MCP Schema Budget Check
+
+Before starting a session:
+- audit which MCP servers are active
+- disable servers not required for this task's scope
+- prefer scoping MCP servers per-task over always-on global configs
+```
+
+This is a Phase 0 (Orientation) addition - check schema budget alongside reading CURRENT_STATE.md.
+
+---
+
+# New Section: Model Tiering by Role
+
+Not a context-size lever, but a token-cost lever that compounds with everything else in this guide.
+
+```md
+# Model Tiering
+
+Lead / Planner agent   -> frontier model (reasoning-heavy)
+Executor (simple diffs) -> mid-tier model
+Sub-agents (high-volume, low-complexity search/grep/formatting) -> smallest capable model
+```
+
+Add to Sub-Agent / Context Isolation Pattern:
+
+```md
+Each sub-agent role should specify BOTH:
+- context scope (existing requirement)
+- model tier (new)
+```
+
+---
+
+# Ecosystem Tools (Unofficial - Audit Before Adopting)
+
+The following are third-party, not Anthropic-maintained. Treat reported savings as unverified
+until measured on your own workflow.
+
+- **MCP output sandboxing tools** - intercept raw tool/bash output before it reaches context,
+  index it locally, return summaries + on-demand search. Reported reductions are large on
+  MCP-heavy sessions but vary by workload.
+- **Bash-output compression hooks** - rewrite common dev commands (`git status`, test runners)
+  to compressed equivalents before output reaches the agent.
+
+Rule if adopting either:
+
+```md
+- Establish a baseline token count for your own workflow first
+- Re-measure after adoption
+- Do not trust vendor-reported percentages as your expected result
+```
+
+---
+
+# Updated Golden Rules (Additions Only)
+
+## ALWAYS
+- Check MCP schema budget during Phase 0 orientation
+- Use tool-result / thinking-block clearing before compaction or restart
+- Assign a model tier per sub-agent role, not just a scope
+- Prefer code-mediated tool calls when the harness supports them
+
+## NEVER
+- Treat automatic compaction as a substitute for explicit handoff files
+- Adopt third-party context tools without measuring your own baseline first
+- Leave unused MCP servers active for the full session by default
+
+---
+
+# Addendum Final Note
+
+None of the above changes the guide's Core Principle. These are new levers within the same
+philosophy: context is a bounded resource, and the goal remains precise, minimal, deterministic
+context - not larger windows.
