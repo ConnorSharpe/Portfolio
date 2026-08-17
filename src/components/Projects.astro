@@ -31,7 +31,7 @@
               assistant - live in production today.
             </p>
             <div class="flex flex-wrap gap-2 mt-4">
-              {['React', 'Node.js/Express', 'Postgres (Neon)', 'Drizzle ORM', 'OpenAI', 'Clerk', 'Vercel'].map((t) => (
+              {['React', 'Node.js/Express', 'Postgres (Neon)', 'Drizzle ORM', 'OpenAI', 'Clerk', 'Vercel', 'Sentry'].map((t) => (
                 <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
               ))}
             </div>
@@ -118,6 +118,22 @@
                   packages, and added request-scoped diagnostics to error paths - all verified
                   against real production traffic and logs, not just local tests, before and
                   after each deploy.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Production Observability (Sentry), Verified Against a Real Deploy</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  Replaced an ad-hoc client-side debug log with a full Sentry integration across
+                  the React client and Node/Express server - structured error tracking, live
+                  logging, and release-tracked source maps. Local testing showed a render error
+                  landing as two separate Sentry events, which looked like an architecture flaw
+                  needing a fix. Instead of patching it blind, retested the same case against an
+                  actual production build first and found the duplicate was a React
+                  development-mode-only artifact - the fix under consideration would have
+                  disabled real error-monitoring coverage across a dozen other parts of the app
+                  for a bug real users would never hit. Verified single-event capture, correct
+                  source-map resolution, and reliable delivery under concurrent invocations
+                  against a live deployment before shipping.
                 </p>
               </div>
             </div>
