@@ -28,10 +28,10 @@
             <p class="text-text-muted text-sm leading-relaxed">
               Designed, built, and shipped a full-stack household pantry app end-to-end and solo:
               receipt scanning, AI meal suggestions, shared real-time pantries, and a kitchen chat
-              assistant - live in production today.
+              assistant with hybrid semantic search - live in production today.
             </p>
             <div class="flex flex-wrap gap-2 mt-4">
-              {['React', 'Node.js/Express', 'Postgres (Neon)', 'Drizzle ORM', 'OpenAI', 'Clerk', 'Vercel', 'Sentry'].map((t) => (
+              {['React', 'Node.js/Express', 'Postgres (Neon)', 'pgvector', 'Drizzle ORM', 'OpenAI', 'Clerk', 'Vercel', 'Sentry'].map((t) => (
                 <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
               ))}
             </div>
@@ -82,8 +82,11 @@
             <p class="text-text-muted text-sm leading-relaxed">
               React + Vite frontend on Tailwind CSS, Node.js/Express backend running as Vercel
               serverless functions, Neon Postgres via Drizzle ORM, Clerk for authentication, and
-              OpenAI for receipt vision, meal suggestions, and the chat assistant. Vercel Blob
-              handles image uploads; a PWA service worker provides offline/installable support.
+              OpenAI for receipt vision, meal suggestions, and the chat assistant. The assistant's
+              search tool runs hybrid retrieval inside the same Postgres database: full-text
+              search and pgvector similarity over OpenAI embeddings, fused with Reciprocal Rank
+              Fusion. Vercel Blob handles image uploads; a PWA service worker provides
+              offline/installable support.
             </p>
           </div>
 
@@ -136,6 +139,25 @@
                   against a live deployment before shipping.
                 </p>
               </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Hybrid Retrieval, Measured Instead of Assumed</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  Gave the chat assistant a search tool over saved recipes and meal history.
+                  Rather than pick full-text or vector search on instinct, built an eval harness
+                  with golden query sets and measured all three: hybrid reached 91% recall@5,
+                  against 72% for full-text and 84% for vector alone - full-text nails rare terms
+                  like "sumac", vectors catch paraphrases, and fusing them keeps both. The agent
+                  called the tool on every target query and none of the controls. Every result
+                  is scoped to the user's household, with tenancy tests run against a real
+                  database, and search falls back to full-text if the embedding call fails. The
+                  design is recorded in five Architecture Decision Records and shipped through
+                  staging to production with a tracked migration and backfill.
+                </p>
+                <p class="text-xs text-text-muted mt-2 italic">
+                  Staging smoke tests caught the agent adding date filters nobody asked for,
+                  which hid correct results. Fixed test-first and re-verified on a live deploy.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -180,7 +202,124 @@
         </div>
       </details>
 
-      <!-- ─── Project 2: Fillory AI ─── -->
+      <!-- ─── Project 2: Governed AI Development Workflow ─── -->
+      <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
+        <summary
+          class="cursor-pointer p-6 flex items-start justify-between gap-4"
+          aria-label="Expand Governed AI Development Workflow case study"
+        >
+          <div class="flex-1 min-w-0">
+            <div class="font-mono text-xs text-accent mb-2 tracking-wide">Personal Project · 2026</div>
+            <h3 class="text-xl font-bold text-text-primary mb-2 leading-snug">
+              Governed AI Development Workflow
+            </h3>
+            <p class="text-text-muted text-sm leading-relaxed">
+              The workflow I build with: Claude Code hooks that enforce test-driven development,
+              role-scoped subagents, and persistent MCP knowledge graphs - used to ship real
+              features like Kitchen Keeper's hybrid search.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4">
+              {['Claude Code', 'Hooks', 'Subagents', 'MCP', 'TDD', 'Node.js'].map((t) => (
+                <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-bg border border-border text-text-muted">{t}</span>
+              ))}
+            </div>
+          </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-180 mt-1"
+            aria-hidden="true"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </summary>
+
+        <div class="px-6 pb-8 border-t border-border pt-6 space-y-8">
+
+          <div class="grid sm:grid-cols-2 gap-6">
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Problem</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                AI coding agents will happily write the code, then write a test that passes
+                because it was written to match the code. Rules in a prompt get skipped when
+                they're inconvenient, context fills up with stale chat, and nothing carries
+                over cleanly from one session to the next.
+              </p>
+            </div>
+            <div>
+              <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Approach</h4>
+              <p class="text-text-muted text-sm leading-relaxed">
+                Move the rules the agent must follow out of the prompt and into tooling it
+                can't talk its way around. Hooks block the actions that break the process,
+                separate agents handle separate jobs, and anything worth remembering is
+                written down in a structured place instead of left in chat history.
+              </p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-4 uppercase tracking-wide font-mono">Engineering Notes</h4>
+            <div class="space-y-4">
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">TDD Enforced by Hooks, Not Instructions</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  Source edits are blocked until a correctly failing test is recorded. Once a
+                  test is written it's locked; changing it takes explicit human approval through
+                  an audit-logged script. Flaky tests are quarantined instead of re-run until
+                  they pass, and a session can't end on a failing suite.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Role-Scoped Subagents</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  A test-writer writes failing tests from the acceptance criteria without seeing
+                  the implementation. An implementer writes the minimum code to make them pass.
+                  A verifier runs the full suite and browser smoke tests and reports back only
+                  pass/fail and the key evidence, so noisy output never floods the main session.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">Persistent Memory That Knows Its Place</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  A per-project knowledge graph over MCP records decisions, incidents, and
+                  constraints, with superseded decisions flagged. The repository always outranks
+                  recorded memory. A second, cross-project graph collects candidate lessons,
+                  which are reviewed before being promoted into a shared operating guide.
+                </p>
+              </div>
+              <div class="border-l-2 border-accent-warm pl-4">
+                <p class="text-sm font-semibold text-text-primary mb-1">A Migration Ledger, Born From an Outage</p>
+                <p class="text-text-muted text-sm leading-relaxed">
+                  A schema migration once went live in production without the code that depended
+                  on it. Now every migration is logged in a ledger the moment it runs, and a
+                  migration and its code push are treated as one unit of work that isn't done
+                  until both have shipped.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-semibold text-accent mb-2 uppercase tracking-wide font-mono">Result</h4>
+            <p class="text-text-muted text-sm leading-relaxed">
+              Specs go through architect review into task files with testable acceptance
+              criteria, and handoff documents carry state between sessions. Using the workflow
+              on real features also surfaced gaps in the tooling itself - the hooks couldn't
+              read the Node test runner's output, and brand-new modules had no valid path to
+              the failing-test step - and both were fixed.
+            </p>
+          </div>
+        </div>
+      </details>
+
+      <!-- ─── Project 3: Fillory AI ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
@@ -288,11 +427,12 @@
                 </p>
               </div>
               <div class="border-l-2 border-accent-warm pl-4">
-                <p class="text-sm font-semibold text-text-primary mb-1">17-Service Production Recovery</p>
+                <p class="text-sm font-semibold text-text-primary mb-1">Making a 17-Service Platform Survive a Power Cycle</p>
                 <p class="text-text-muted text-sm leading-relaxed">
-                  Led live production recovery of a 17-service AI platform following a
-                  hardware failure - implementing process persistence and boot automation to
-                  achieve zero-downtime intervention with no data or service loss.
+                  The outlet the server was plugged into started buzzing. Unplugging meant a
+                  manual recovery that had taken 6 hours the last time. Working with an agent,
+                  I built process persistence and boot automation so all 17 services came back
+                  on their own - then moved the server to a different outlet with no data loss.
                 </p>
               </div>
               <div class="border-l-2 border-accent-warm pl-4">
@@ -342,7 +482,7 @@
         </div>
       </details>
 
-      <!-- ─── Project 3: Office Ally ─── -->
+      <!-- ─── Project 4: Office Ally ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
@@ -421,7 +561,7 @@
         </div>
       </details>
 
-      <!-- ─── Project 4: Prosper IT - Nav Menu ─── -->
+      <!-- ─── Project 5: Prosper IT - Nav Menu ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
@@ -532,7 +672,7 @@
         </div>
       </details>
 
-      <!-- ─── Project 5: Prosper IT - Progress Bars ─── -->
+      <!-- ─── Project 6: Prosper IT - Progress Bars ─── -->
       <details class="group bg-surface border border-border rounded-xl overflow-hidden card-hover">
         <summary
           class="cursor-pointer p-6 flex items-start justify-between gap-4"
