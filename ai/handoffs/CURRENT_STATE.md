@@ -8,7 +8,7 @@ Complete and pushed to `main` (Vercel auto-deploys). AI chat widget (TASK-002) r
 - `src/components/Projects.astro` — KK hybrid-retrieval note + pgvector tag; new "Governed AI Development Workflow" card; Fillory power-cycle recovery reworded; efficiency-guide block removed
 - `src/components/Timeline.astro` — Fillory recovery bullet matches resume
 - `src/components/Skills.astro` — categories mirror the resume's skills lines
-- `src/components/About.astro` — 5+ years; "without guardrails" leftover rewritten
+- `src/components/About.astro` — 5+ years; "without guardrails" leftover rewritten; stat "3 AI frameworks" → "91% recall@5"
 - `src/components/EngineeringApproach.astro` — nav menu load time 20s → 7s (matches screenshot, 6.69s)
 - `src/components/Hero.astro` — profile photo now 512px WebP (19 KB, was 3.1 MB PNG)
 - `src/layouts/Layout.astro` — title/description/JSON-LD "AI Engineer · Full-Stack Developer"; og:image width/height/alt
@@ -26,7 +26,6 @@ Complete and pushed to `main` (Vercel auto-deploys). AI chat widget (TASK-002) r
 # Remaining Work
 - Optional: re-add `@astrojs/sitemap` (dependency still installed) and `robots.txt` now that the domain is correct
 - Optional: refresh LinkedIn's cached preview via Post Inspector
-- Optional: replace About's "3 AI frameworks" stat
 
 # Verification Results
 - `npm run build`: PASS
