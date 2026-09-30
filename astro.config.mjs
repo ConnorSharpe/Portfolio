@@ -2,8 +2,8 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  // Update to your live domain, then re-add @astrojs/sitemap integration
-  site: 'https://connorsharpe.dev',
+  // Live Vercel domain; used for canonical, og:url, og:image, and JSON-LD URLs
+  site: 'https://connor-sharpe-portfolio.vercel.app',
   integrations: [
     tailwind({ applyBaseStyles: false }),
   ],

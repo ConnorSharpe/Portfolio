@@ -1,76 +1,40 @@
 # Task
-TASK-002: AI Chat Widget — Phase 2
+Content refresh: resume sync, Kitchen Keeper retrieval, AI dev workflow, site cleanup (no TASK file)
 
 # Current Status
-Phase 2 implementation complete. Build passes clean. Awaiting: (1) Connor fills `src/data/chat-context.ts` with real content, (2) `GOOGLE_AI_API_KEY` provisioned in Vercel env vars. Then push to main → auto-deploy.
+Complete and pushed to `main` (Vercel auto-deploys). AI chat widget (TASK-002) removed entirely.
 
-# What Was Accomplished (Phase 1)
-1. Built full portfolio site: Astro + Tailwind, all sections
-2. Deployed to Vercel — auto-deploys on push to `main`
-3. Disabled GitHub Pages to stop Jekyll failures
-4. Resume PDF live at `/resume/Sharpe_AI_Resume_2026.pdf`
-5. Smoke tested — all items passed ✅
-6. Contact form wired to Formspree `xojbgqbv` — email delivery confirmed ✅
+# Files Modified
+- `src/components/Projects.astro` — KK hybrid-retrieval note + pgvector tag; new "Governed AI Development Workflow" card; Fillory power-cycle recovery reworded; efficiency-guide block removed
+- `src/components/Timeline.astro` — Fillory recovery bullet matches resume
+- `src/components/Skills.astro` — categories mirror the resume's skills lines
+- `src/components/About.astro` — 5+ years; "without guardrails" leftover rewritten
+- `src/components/EngineeringApproach.astro` — nav menu load time 20s → 7s (matches screenshot, 6.69s)
+- `src/components/Hero.astro` — profile photo now 512px WebP (19 KB, was 3.1 MB PNG)
+- `src/layouts/Layout.astro` — title/description/JSON-LD "AI Engineer · Full-Stack Developer"; og:image width/height/alt
+- `astro.config.mjs` — `site` = https://connor-sharpe-portfolio.vercel.app (was non-resolving connorsharpe.dev)
+- `public/social-preview.png` — new 1200×630 link preview
+- `public/resume/Sharpe_AI_Resume_2026.pdf` — updated resume
+- Removed: `ChatWidget.astro`, `api/chat.ts`, `src/data/chat-context.ts`, `@google/generative-ai`, `public/efficiency-guide.md`, 71 unused images
 
-# Files in Repo (main)
-```
-src/
-  components/
-    Nav.astro
-    Hero.astro
-    About.astro
-    EngineeringApproach.astro
-    Skills.astro
-    Timeline.astro
-    Projects.astro
-    Contact.astro          ← Formspree xojbgqbv, working
-  layouts/Layout.astro
-  pages/index.astro
-  styles/global.css
-public/
-  images/
-  resume/
-    Sharpe_AI_Resume_2026.pdf
-  efficiency-guide.md
-astro.config.mjs
-tailwind.config.mjs
-package.json
-```
-
-# Files Modified (Phase 2)
-- `src/data/chat-context.ts` — new, scaffolded (Connor must fill in content)
-- `src/components/ChatWidget.astro` — new, fully implemented
-- `api/chat.ts` — new, Vercel Serverless Function
-- `src/pages/index.astro` — import + `<ChatWidget />` added
-- `package.json` — `@google/generative-ai` added
-
-# Verification Results
-- `npm run build`: PASS ✅
-- Manual UI test: pending (requires Vercel env var)
+# Decisions Made
+- Chat widget removed, not fixed (gemini-2.0-flash shut down 2026-06-01; SDK end-of-life; context was placeholder)
+- Title everywhere: "AI Engineer · Full-Stack Developer" (resume updated to match; Fillory job title stays "AI Software Engineer")
+- Efficiency guide unpublished: v3 predates the TDD-hook / knowledge-graph workflow
+- Site copy must match the resume; resume source lives in the parent folder (`../Sharpe_Connor_AI_Resume_2026.docx`)
 
 # Remaining Work
+- Optional: re-add `@astrojs/sitemap` (dependency still installed) and `robots.txt` now that the domain is correct
+- Optional: refresh LinkedIn's cached preview via Post Inspector
+- Optional: replace About's "3 AI frameworks" stat
 
-**Phase 2 (blocked on Connor):**
-- [ ] TODO: Fill in `src/data/chat-context.ts` with actual bio, skills, work history, projects
-- [ ] TODO: Provision `GOOGLE_AI_API_KEY` in Vercel dashboard → Environment Variables
-- Push to main → Vercel auto-deploys
-- Run verification checklist from TASK-002.md
-
-**Phase 3 (polish):**
-- Social preview image (1200×630) → `public/social-preview.png`
-- Light mode toggle
-- Re-enable sitemap with live domain
-- `robots.txt`
-- Image compression (profile pic is 3MB)
-
-# Known Issues / Open Items
-- `social-preview.png` missing — OG/Twitter card will 404 when URL is shared (Phase 3)
-- `Portfolio_Profile_Pic.png` is 3MB uncompressed — optimize in Phase 3
+# Verification Results
+- `npm run build`: PASS
+- Browser smoke test (verifier, local preview): hero, no chat widget, no console errors, skills, projects, all images, /social-preview.png, resume link: PASS
 
 # Context Notes
-- branch: main
-- worktree: N/A
-- Vercel: connected to `ConnorSharpe/Portfolio`, auto-deploys on push to main
-- GitHub Pages: unpublished — do not re-enable
+- branch: main; worktree: N/A
+- Vercel auto-deploys on push to main; GitHub Pages must stay unpublished
 - SSH: personal account uses `git@github-personal:ConnorSharpe/...`
-- context pressure: low
+- Content-only site (no test suite); enforcement kit not installed
+- context pressure: medium
